@@ -1,0 +1,25 @@
+version: "3.1"
+
+services:
+  db:
+    image: mariadb
+    container_name: Universitiy-Room-Reservation-DB
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    # environment:
+    #  - PMA_ARBITRARY=1
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - /sessions
