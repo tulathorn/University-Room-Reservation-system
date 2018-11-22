@@ -1,7 +1,7 @@
 const sequelize = require("../sequelize");
 
 const UserModel = sequelize.define(
-  "tablename",
+  "User",
   {
     UserID: {
       type: Sequelize.INTEGER,
