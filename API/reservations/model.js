@@ -1,43 +1,39 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../sequelize");
 
-const RoomInformationModel = sequelize.define(
-  "RoomInformation",
+const ReservationsModel = sequelize.define(
+  "Reservations",
   {
-    RoomID: {
+    BookingID: {
       type: Sequelize.STRING,
       primaryKey: true,
       allowNull: false
     },
-    Picture: {
+    RoomID: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    Building: {
+    UserID: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    Floor: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    RoomNumber: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    PeopleCapacity: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    ClosingDay: {
+    Title: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    OpenTime: {
+    Day: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    Date: {
+      type: Sequelize.DATEONLY,
+      allowNull: false
+    },
+    StartTime: {
       type: Sequelize.TIME,
       allowNull: false
     },
-    CloseTime: {
+    EndTime: {
       type: Sequelize.TIME,
       allowNull: false
     }
@@ -47,33 +43,35 @@ const RoomInformationModel = sequelize.define(
   }
 );
 
-const EquipmentModel = sequelize.define(
-  "Equipment",
+const RoomUse = sequelize.define(
+  "RoomUse",
   {
-    RoomID: {
+    BookingID: {
       type: Sequelize.STRING,
       primaryKey: true,
       allowNull: false
     },
-    HasTeacherComputers: {
-      type: Sequelize.BOOLEAN,
+    Pin: {
+      type: Sequelize.STRING,
       allowNull: false
     },
-    HasSyudentsComputers: {
-      type: Sequelize.BOOLEAN,
+    PinAcceptStart: {
+      type: Sequelize.DATE,
       allowNull: false
     },
-    HasProjector: {
-      type: Sequelize.BOOLEAN,
+    PinAcceptEnd: {
+      type: Sequelize.DATE,
       allowNull: false
     },
-    HasWhiterboard: {
-      type: Sequelize.BOOLEAN,
+    KeyPickedUp: {
+      type: Sequelize.DATE
+    },
+    KeyReturn: {
+      type: Sequelize.DATE,
       allowNull: false
     },
-    HasVisualizer: {
-      type: Sequelize.BOOLEAN,
-      allowNull: false
+    ReturnInTime: {
+      type: Sequelize.BOOLEAN
     }
   },
   {

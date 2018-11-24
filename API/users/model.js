@@ -1,3 +1,4 @@
+const Sequelize = require("sequelize");
 const sequelize = require("../sequelize");
 
 const UserModel = sequelize.define(
@@ -20,7 +21,7 @@ const UserModel = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    Status: {
+    IsBan: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     }
