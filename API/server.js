@@ -1,34 +1,36 @@
 const fastify = require("fastify")();
-const swaggerJSDoc = require("swagger-jsdoc");
+const fs = require("fs");
+const path = require("path");
+// const SwaggerUI = require("swagger-ui-dist");
 
-// Doc
-const swaggerDefinition = {
-  info: {
-    title: "Node Swagger API",
-    version: "1.0.0",
-    description: "Demonstrating how to describe a RESTful API with Swagger"
-  },
-  host: "localhost:4000",
-  basePath: "/"
-};
+// const serveSwaggerSpec = require("./specProvider");
+// const pathToSwaggerUi = SwaggerUI.absolutePath();
+// const SPEC_PATH = "spce.json";
 
-// options for the swagger docs
-const options = {
-  // import swaggerDefinitions
-  swaggerDefinition: swaggerDefinition,
-  // path to the API docs
-  apis: ["./routes/.js", "routes.js"] // pass all in array
-};
-// initialize swagger-jsdoc
-const swaggerSpec = swaggerJSDoc(options);
+// // Replace default swagger URL if needed
+// const swaggerIndex = fs
+//   .readFileSync(`${pathToSwaggerUi}/index.html`)
+//   .toString()
+//   .replace(
+//     "https://petstore.swagger.io/v2/swagger.json",
+//     "http://localhost:" + "4000" + SPEC_PATH
+//   );
 
-// Init swagger route
-fastify.get("/swagger.json", async (request, reply) => {
-  reply.code(200);
-  reply.header("Content-Type", "application/json");
-  reply.send(swaggerSpec);
-});
+// fs.writeFile(`${pathToSwaggerUi}/index.html`, swaggerIndex, err => {
+//   if (err) {
+//     console.log(err);
+//   }
+// });
 
+// // for swagger register
+// fastify.register(require("fastify-static"), {
+//   root: path.join(SPEC_PATH, {...serveSwaggerSpec}),
+//   // prefix: serveSwaggerSpec // optional: default '/'
+// });
+
+// fastify.get(`${pathToSwaggerUi}`, function(req, reply) {
+//   reply.sendFile("index.html"); // serving path.join(__dirname, 'public', 'myHtml.html') directly
+// });
 // Health check the api
 fastify.get("/healthcheck", async (request, reply) => {
   reply.code(200);
