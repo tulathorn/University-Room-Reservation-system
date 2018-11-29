@@ -23,26 +23,31 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send({ messege: "Welcome to RRS APi" });
   });
 
-  fastify.get("/users/getUsers", async (request, reply) => {
+  fastify.get("/users", async (request, reply) => {
+    console.log(request);
     const data = await userController.find();
     reply.type("application/json").code(200);
     reply.send(data);
   });
-  fastify.post("/users/createUsers", async (request, reply) => {
+  fastify.post("/users", async (request, reply) => {
+    console.log(request);
     const data = await userController.create();
     reply.type("application/json").code(200);
     reply.send(data);
   });
-  fastify.put("/users/updateUsers", async (request, reply) => {
+  fastify.put("/users", async (request, reply) => {
+    console.log(request);
     const data = await userController.update();
     reply.type("application/json").code(200);
     reply.send(data);
   });
-  fastify.delete("/users/deleteUsers", async (request, reply) => {
+  fastify.delete("/users", async (request, reply) => {
+    console.log(request);
     const data = await userController.delete();
     reply.type("application/json").code(200);
     reply.send(data);
   });
+
   next();
 };
 module.exports = Mainrouters;

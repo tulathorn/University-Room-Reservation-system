@@ -31,6 +31,7 @@ const path = require("path");
 // fastify.get(`${pathToSwaggerUi}`, function(req, reply) {
 //   reply.sendFile("index.html"); // serving path.join(__dirname, 'public', 'myHtml.html') directly
 // });
+
 // Health check the api
 fastify.get("/healthcheck", async (request, reply) => {
   reply.code(200);

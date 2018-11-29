@@ -59,7 +59,7 @@ const EquipmentModel = sequelize.define(
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
-    HasSyudentsComputers: {
+    HasStudentsComputers: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
