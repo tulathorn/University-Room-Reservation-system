@@ -76,5 +76,18 @@ module.exports = {
         reject(err);
       }
     });
+  },
+  deleteUser: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await UserModel.destroy({
+          where: { UserID: args.UserID }
+        });
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
   }
 };

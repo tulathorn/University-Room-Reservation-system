@@ -17,8 +17,10 @@ module.exports = {
     // };
   },
   delete: async data => {
-    return {
-      message: "delete user called"
-    };
+    let response = await UserModel.deleteUser(data);
+    return response;
+    // return {
+    //   message: "delete user called"
+    // };
   }
 };
