@@ -17,11 +17,15 @@ const UserModel = sequelize.define(
       type: Sequelize.STRING,
       allowNull: false
     },
-    Role: {
-      type: Sequelize.INTEGER,
+    EmailAddress: {
+      type: Sequelize.STRING,
       allowNull: false
     },
-    IsBan: {
+    IsAdmin: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    },
+    Status: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     }
@@ -35,9 +39,20 @@ module.exports = {
   getUser: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await MeterModel.findAll({});
+        console.log(args);
+        let data = await UserModel.findAll({
+          attributes: [
+            "UserID",
+            "FirstName",
+            "LastName",
+            "EmailAddress",
+            "IsAdmin",
+            "Status"
+          ]
+        });
         resolve(data);
       } catch (err) {
+        console.log(err);
         reject(err);
       }
     });
