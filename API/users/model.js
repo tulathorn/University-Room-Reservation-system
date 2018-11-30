@@ -39,7 +39,7 @@ module.exports = {
   getUser: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log(args);
+        let condition = args || "";
         let data = await UserModel.findAll({
           attributes: [
             "UserID",
@@ -48,7 +48,10 @@ module.exports = {
             "EmailAddress",
             "IsAdmin",
             "Status"
-          ]
+          ],
+          where: {
+            ...condition
+          }
         });
         resolve(data);
       } catch (err) {

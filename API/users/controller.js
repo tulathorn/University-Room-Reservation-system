@@ -1,11 +1,9 @@
 const UserModel = require("./model");
 
 module.exports = {
-  find: async params => {
-    console.log(params);
-    let data = await UserModel.getUser();
-    // console.log("Response", data);
-    return data;
+  find: async data => {
+    let response = await UserModel.getUser(data);
+    return response;
     // return {
     //   message: "find user called"
     // };

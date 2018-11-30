@@ -24,8 +24,8 @@ const Mainrouters = (fastify, opts, next) => {
   });
 
   fastify.get("/users", async (request, reply) => {
-    console.log(request);
-    const data = await userController.find();
+    console.log(request.query);
+    const data = await userController.find(request.query);
     reply.type("application/json").code(200);
     reply.send(data);
   });
