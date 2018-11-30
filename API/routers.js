@@ -30,8 +30,8 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send(data);
   });
   fastify.post("/users", async (request, reply) => {
-    console.log(request);
-    const data = await userController.create();
+    // console.log(request.body);
+    const data = await userController.create(request.body);
     reply.type("application/json").code(200);
     reply.send(data);
   });

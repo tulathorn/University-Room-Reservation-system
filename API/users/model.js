@@ -31,7 +31,8 @@ const UserModel = sequelize.define(
     }
   },
   {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   }
 );
 
@@ -41,18 +42,21 @@ module.exports = {
       try {
         let condition = args || "";
         let data = await UserModel.findAll({
-          attributes: [
-            "UserID",
-            "FirstName",
-            "LastName",
-            "EmailAddress",
-            "IsAdmin",
-            "Status"
-          ],
           where: {
             ...condition
           }
         });
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  },
+  createUser: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await UserModel.create(args);
         resolve(data);
       } catch (err) {
         console.log(err);

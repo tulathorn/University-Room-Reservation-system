@@ -9,9 +9,8 @@ module.exports = {
     // };
   },
   create: async data => {
-    return {
-      message: "create user called"
-    };
+    let response = await UserModel.createUser(data);
+    return response;
   },
   update: async data => {
     return {
