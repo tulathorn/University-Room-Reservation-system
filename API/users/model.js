@@ -63,5 +63,18 @@ module.exports = {
         reject(err);
       }
     });
+  },
+  updateUser: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await UserModel.update(args, {
+          where: { UserID: args.UserID }
+        });
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
   }
 };
