@@ -43,7 +43,8 @@ const RoomInformationModel = sequelize.define(
     }
   },
   {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   }
 );
 
@@ -59,7 +60,7 @@ const EquipmentModel = sequelize.define(
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
-    HasStudentsComputers: {
+    HasStudentComputers: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
@@ -67,7 +68,7 @@ const EquipmentModel = sequelize.define(
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
-    HasWhiterboard: {
+    HasWhiteboard: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
@@ -77,6 +78,73 @@ const EquipmentModel = sequelize.define(
     }
   },
   {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   }
 );
+
+RoomInformationModel.hasOne(EquipmentModel);
+
+module.exports = {
+  getAllRooms: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await RoomInformationModel.findAll({});
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  },
+  getRoom: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let condition = args;
+        let data = await RoomInformationModel.findAll({
+          where: {
+            ...condition
+          },
+          include: [{ model: EquipmentModel, as: "RoomID" }]
+        });
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  },
+  createRoom: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = "test";
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  },
+  updateRoom: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = "test";
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  },
+  deleteRoom: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = "test";
+        resolve(data);
+      } catch (err) {
+        console.log(err);
+        reject(err);
+      }
+    });
+  }
+};

@@ -2,6 +2,7 @@ const swaggerJSDoc = require("swagger-jsdoc");
 
 // controller call
 const userController = require("./users/controller");
+const roomController = require("./rooms/controller");
 
 const Mainrouters = (fastify, opts, next) => {
   /**
@@ -44,6 +45,13 @@ const Mainrouters = (fastify, opts, next) => {
   fastify.delete("/users", async (request, reply) => {
     console.log(request.query);
     const data = await userController.delete(request.query);
+    reply.type("application/json").code(200);
+    reply.send(data);
+  });
+
+  fastify.get("/rooms", async (request, reply) => {
+    console.log(request.query);
+    const data = await roomController.find(request.query);
     reply.type("application/json").code(200);
     reply.send(data);
   });
