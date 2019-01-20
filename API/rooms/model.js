@@ -5,13 +5,18 @@ const RoomInformationModel = sequelize.define(
   "RoomInformation",
   {
     RoomID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INT,
       primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    RoomName: {
+      type: Sequelize.CHAR,
       allowNull: false
     },
     Picture: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: true
     },
     Building: {
       type: Sequelize.STRING,
@@ -19,27 +24,27 @@ const RoomInformationModel = sequelize.define(
     },
     Floor: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     RoomNumber: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     PeopleCapacity: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     ClosingDay: {
-      type: Sequelize.STRING,
-      allowNull: false
+      type: Sequelize.CHAR,
+      allowNull: true
     },
     OpenTime: {
       type: Sequelize.TIME,
-      allowNull: false
+      allowNull: true
     },
     CloseTime: {
       type: Sequelize.TIME,
-      allowNull: false
+      allowNull: true
     }
   },
   {
@@ -52,29 +57,29 @@ const EquipmentModel = sequelize.define(
   "Equipment",
   {
     RoomID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INT,
       primaryKey: true,
       allowNull: false
     },
     HasTeacherComputers: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     HasStudentComputers: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     HasProjector: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     HasWhiteboard: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true
     },
     HasVisualizer: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true
     }
   },
   {

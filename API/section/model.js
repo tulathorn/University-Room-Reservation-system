@@ -2,10 +2,11 @@ const Sequelize = require("sequelize");
 const sequelize = require("../sequelize");
 
 const SectuonModel = sequelize.define("Section", {
-  Sequence: {
+  ID: {
     type: Sequelize.INTEGER,
     primaryKey: true,
-    allowNull: false
+    allowNull: false,
+    autoIncrement: true
   },
   Section: {
     type: Sequelize.STRING,

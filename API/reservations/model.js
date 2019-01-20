@@ -5,9 +5,10 @@ const ReservationsModel = sequelize.define(
   "Reservations",
   {
     BookingID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
+      autoIncrement: true
     },
     RoomID: {
       type: Sequelize.STRING,

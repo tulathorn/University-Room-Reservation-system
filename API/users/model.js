@@ -2,11 +2,16 @@ const Sequelize = require("sequelize");
 const sequelize = require("../sequelize");
 
 const UserModel = sequelize.define(
-  "User",
+  "UserInfo",
   {
     UserID: {
       type: Sequelize.INTEGER,
       primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    UsernameID: {
+      type: Sequelize.CHAR,
       allowNull: false
     },
     FirstName: {
@@ -25,7 +30,7 @@ const UserModel = sequelize.define(
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
-    Status: {
+    IsBan: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     }
