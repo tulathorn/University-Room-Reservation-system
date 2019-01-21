@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS RecurringReservations(
 	Day INT,
 	StartTime TIME,
 	EndTime TIME,
-	Sections INT,
+	Sections VARCHAR(64),
 	Year INT,
 	DateBooked TIMESTAMP,
 	Purpose VARCHAR(256),
@@ -151,7 +151,7 @@ INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Da
 INSERT INTO RoomUse (BookingID,Pin,PinAcceptStart,PinAcceptEnd,KeyPickedUp,KeyReturn,ReturnInTime) VALUES
 	('1','123478','2018-12-03 11:45','2018-12-03 12:15',NULL,NULL,0),
 	('2','369852','2018-12-04 08:45','2018-12-04 09:15',NULL,NULL,0);	
-	
+
 
 INSERT INTO Section (Sections,Year,Program) VALUES
 	('A',4,0),
