@@ -5,7 +5,7 @@ const RoomInformationModel = sequelize.define(
   "RoomInformation",
   {
     RoomID: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
@@ -57,7 +57,7 @@ const EquipmentModel = sequelize.define(
   "Equipment",
   {
     RoomID: {
-      type: Sequelize.INT,
+      type: Sequelize.INTEGER,
       primaryKey: true,
       allowNull: false
     },

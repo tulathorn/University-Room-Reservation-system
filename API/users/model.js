@@ -53,7 +53,6 @@ module.exports = {
         });
         resolve(data);
       } catch (err) {
-        console.log(err);
         reject(err);
       }
     });
@@ -64,7 +63,6 @@ module.exports = {
         let data = await UserModel.create(args);
         resolve(data);
       } catch (err) {
-        console.log(err);
         reject(err);
       }
     });
@@ -77,7 +75,6 @@ module.exports = {
         });
         resolve(data);
       } catch (err) {
-        console.log(err);
         reject(err);
       }
     });
@@ -90,7 +87,6 @@ module.exports = {
         });
         resolve(data);
       } catch (err) {
-        console.log(err);
         reject(err);
       }
     });

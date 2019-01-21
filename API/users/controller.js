@@ -12,15 +12,9 @@ module.exports = {
   update: async data => {
     let response = await UserModel.updateUser(data);
     return response;
-    // return {
-    //   message: "update user called"
-    // };
   },
   delete: async data => {
     let response = await UserModel.deleteUser(data);
     return response;
-    // return {
-    //   message: "delete user called"
-    // };
   }
 };

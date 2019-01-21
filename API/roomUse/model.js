@@ -12,7 +12,11 @@ const RoomUse = sequelize.define(
     },
     BookingID: {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: true
+    },
+    RBookingID: {
+      type: Sequelize.INTEGER,
+      allowNull: true
     },
     Pin: {
       type: Sequelize.CHAR,
@@ -20,19 +24,19 @@ const RoomUse = sequelize.define(
     },
     PinAcceptStart: {
       type: Sequelize.DATE,
-      allowNull: false,
+      allowNull: true,
       defaultValue: Sequelize.NOW
     },
     PinAcceptEnd: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: true
     },
     KeyPickedUp: {
       type: Sequelize.DATE
     },
     KeyReturn: {
       type: Sequelize.DATE,
-      allowNull: false
+      allowNull: true
     },
     ReturnInTime: {
       type: Sequelize.BOOLEAN
