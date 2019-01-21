@@ -146,9 +146,9 @@ INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBoo
 	('2','2','Activity',2,'2018/12/04','09:00','11:00','2018-11-18 14:42','Meeting for activity'),
 	('3','3','Meeting YWC',2,'2018/12/04','16:00','20:00','2018-11-24 09:08','YWC Camp');
 
-INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,Year,DateBooked,Purpose) VALUES
-	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00','A',4,'2018-11-10 11:58','CPE Class'),
-	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00','C',3,'2018-11-15 12:33','CPE Class2');
+INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
+	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'A',4,'2018-11-10 11:58','CPE Class'),
+	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'C',3,'2018-11-15 12:33','CPE Class2');
 	
 INSERT INTO RoomUse (BookingID,Pin,PinAcceptStart,PinAcceptEnd,KeyPickedUp,KeyReturn,ReturnInTime) VALUES
 	('1','123478','2018-12-03 11:45','2018-12-03 12:15',NULL,NULL,0),
