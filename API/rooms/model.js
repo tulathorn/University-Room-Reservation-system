@@ -124,7 +124,11 @@ module.exports = {
   createRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = "test";
+        let equipment = args.Equipment;
+        console.log("equipment", equipment);
+        let data = await RoomInformationModel.create(args);
+        equipment.RoomID = data.RoomID;
+        let equipmentCreate = await EquipmentModel.create(equipment);
         resolve(data);
       } catch (err) {
         console.log(err);

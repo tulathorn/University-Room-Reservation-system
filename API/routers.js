@@ -56,6 +56,13 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send(data);
   });
 
+  fastify.post("/rooms", async (request, reply) => {
+    console.log(request.query);
+    const data = await roomController.create(request.body);
+    reply.type("application/json").code(200);
+    reply.send(data);
+  });
+
   next();
 };
 module.exports = Mainrouters;

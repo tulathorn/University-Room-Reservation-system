@@ -14,9 +14,8 @@ module.exports = {
     // };
   },
   create: async data => {
-    return {
-      message: "create room called"
-    };
+    let response = await RoomModel.createRoom(data);
+    return response;
   },
   update: async data => {
     return {
