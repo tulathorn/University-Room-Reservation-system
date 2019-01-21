@@ -116,15 +116,6 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 );
 
 
-
-
-
-
-
-
-
-
-
 /*------------------Insert Data------------------*/
 INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCapacity,ClosingDay,OpenTime,CloseTime) VALUES
 	('CPE1121','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,21,60,'0000011','08:00','20:00'),
@@ -165,7 +156,6 @@ INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
 	('honhon015@hotmail.com','Door Locked','I can not open the locked door','2019-01-16 23:39'),
 	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
 	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42');
-
 
 
 
