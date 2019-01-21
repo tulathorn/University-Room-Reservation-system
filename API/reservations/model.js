@@ -11,11 +11,11 @@ const ReservationsModel = sequelize.define(
       autoIncrement: true
     },
     RoomID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false
     },
     UserID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false
     },
     Title: {
@@ -37,45 +37,76 @@ const ReservationsModel = sequelize.define(
     EndTime: {
       type: Sequelize.TIME,
       allowNull: false
+    },
+    DateBooked: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    Purpose: {
+      type: Sequelize.STRING
     }
   },
   {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   }
 );
 
-const RoomUse = sequelize.define(
-  "RoomUse",
+const RecurringReservationsModel = sequelize.define(
+  "RecurringReservations",
   {
     BookingID: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    RoomID: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
-    Pin: {
+    UserID: {
+      type: Sequelize.INTEGER,
+      allowNull: false
+    },
+    Title: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    PinAcceptStart: {
-      type: Sequelize.DATE,
+    Term: {
+      type: Sequelize.CHAR,
       allowNull: false
     },
-    PinAcceptEnd: {
-      type: Sequelize.DATE,
+    Day: {
+      type: Sequelize.INTEGER,
       allowNull: false
     },
-    KeyPickedUp: {
-      type: Sequelize.DATE
-    },
-    KeyReturn: {
-      type: Sequelize.DATE,
+    StartDate: {
+      type: Sequelize.DATEONLY,
       allowNull: false
     },
-    ReturnInTime: {
-      type: Sequelize.BOOLEAN
+    EndDate: {
+      type: Sequelize.DATEONLY,
+      allowNull: false
+    },
+    StartTime: {
+      type: Sequelize.TIME,
+      allowNull: false
+    },
+    EndTime: {
+      type: Sequelize.TIME,
+      allowNull: false
+    },
+    DateBooked: {
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW
+    },
+    Purpose: {
+      type: Sequelize.STRING
     }
   },
   {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   }
 );
