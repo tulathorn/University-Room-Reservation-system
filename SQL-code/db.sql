@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 	KeyPickedUp TIMESTAMP,
 	KeyReturn TIMESTAMP,
 	ReturnInTime BOOLEAN,
-	PRIMARY KEY(Sequence),
+	PRIMARY KEY(UsageID),
 	FOREIGN KEY(BookingID) REFERENCES Reservations(BookingID) ,
 	FOREIGN KEY(BookingID) REFERENCES RecurringReservations(BookingID)
 );
