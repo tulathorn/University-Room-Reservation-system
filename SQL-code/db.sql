@@ -101,7 +101,8 @@ CREATE TABLE IF NOT EXISTS RecurringReservations(
 
 CREATE TABLE IF NOT EXISTS RoomUse(
 	UsageID INT NOT NULL AUTO_INCREMENT,
-	BookingID INT NOT NULL,
+	BookingID INT,
+	RBookingID INT,
 	Pin CHAR(8) NOT NULL,
 	PinAcceptStart TIMESTAMP,
 	PinAcceptEnd TIMESTAMP,
@@ -110,7 +111,7 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 	ReturnInTime BOOLEAN,
 	PRIMARY KEY(UsageID),
 	FOREIGN KEY(BookingID) REFERENCES Reservations(BookingID) ,
-	FOREIGN KEY(BookingID) REFERENCES RecurringReservations(BookingID)
+	FOREIGN KEY(RBookingID) REFERENCES RecurringReservations(BookingID)
 );
 
 
