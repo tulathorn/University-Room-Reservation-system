@@ -112,3 +112,64 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 	FOREIGN KEY(BookingID) REFERENCES Reservations(BookingID) ,
 	FOREIGN KEY(BookingID) REFERENCES RecurringReservations(BookingID)
 );
+
+
+
+
+
+
+
+
+
+
+
+/*------------------Insert Data------------------*/
+INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCapacity,ClosingDay,OpenTime,CloseTime) VALUES
+	('CPE1121','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,21,60,'0000011','08:00','20:00'),
+	('CB1402','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB1',4,2,50,'0000011','08:00','18:00'),
+	('CB2602','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB2',6,2,70,'0000000','10:00','22:00');
+
+INSERT INTO Equipment VALUES
+	('CPE1121',1,0,1,1,1,1),
+	('CB1402',1,1,1,1,0,0),
+	('CB2602',0,0,0,0,1,0);
+
+INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,IsAdmin,IsBan) VALUES
+	('58070503412','Tulathorn','Sripongpankul','tul.tulathorn@gmail.com',1,0),
+	('58070503424','Yosita','Sitthiporn','janelibraus@gmail.com',0,0),
+	('58070503438','Arnan','Hirunratanakorn','honhon015@hotmail.com',0,0);
+
+INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBooked,Purpose) VALUES
+	('1','1','YWC Tutor Class',1,'2018/12/03','12:00','13:30','2018-11-22 11:34','Tutor'),
+	('2','2','Activity',2,'2018/12/04','09:00','11:00','2018-11-18 14:42','Meeting for activity'),
+	('3','3','Meeting YWC',2,'2018/12/04','16:00','20:00','2018-11-24 09:08','YWC Camp');
+
+INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,Year,DateBoked,Purpose) VALUES
+	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00','A',4,'2018-11-10 11:58','CPE Class'),
+	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00','C',3,'2018-11-15 12:33','CPE Class2');
+	
+INSERT INTO RoomUse (BookingID,Pin,PinAcceptStart,PinAcceptEnd,KeyPickedUp,KeyReturn,ReturnInTime) VALUES
+	('1','123478','2018-12-03 11:45','2018-12-03 12:15',NULL,NULL,0),
+	('2','369852','2018-12-04 08:45','2018-12-04 09:15',NULL,NULL,0),
+	('3','258147','2018-12-04 15:45','2018-12-04 16:15',NULL,NULL,0);	
+
+INSERT INTO Section (Sections,Year,Program) VALUES
+	('A',4,0),
+	('B',4,0),
+	('C',3,1),
+	('D',3,1);
+
+INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
+	('honhon015@hotmail.com','Door Locked','I can not open the locked door','2019-01-16 23:39'),
+	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
+	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42')
+
+
+
+
+
+
+
+
+
+
