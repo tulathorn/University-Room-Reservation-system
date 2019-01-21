@@ -130,9 +130,9 @@ INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCa
 	('CB2602','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB2',6,2,70,'0000000','10:00','22:00');
 
 INSERT INTO Equipment VALUES
-	('CPE1121',1,0,1,1,1,1),
-	('CB1402',1,1,1,1,0,0),
-	('CB2602',0,0,0,0,1,0);
+	('1',1,0,1,1,1,1),
+	('2',1,1,1,1,0,0),
+	('3',0,0,0,0,1,0);
 
 INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,IsAdmin,IsBan) VALUES
 	('58070503412','Tulathorn','Sripongpankul','tul.tulathorn@gmail.com',1,0),
@@ -144,14 +144,14 @@ INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBoo
 	('2','2','Activity',2,'2018/12/04','09:00','11:00','2018-11-18 14:42','Meeting for activity'),
 	('3','3','Meeting YWC',2,'2018/12/04','16:00','20:00','2018-11-24 09:08','YWC Camp');
 
-INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,Year,DateBoked,Purpose) VALUES
+INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,Year,DateBooked,Purpose) VALUES
 	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00','A',4,'2018-11-10 11:58','CPE Class'),
 	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00','C',3,'2018-11-15 12:33','CPE Class2');
 	
 INSERT INTO RoomUse (BookingID,Pin,PinAcceptStart,PinAcceptEnd,KeyPickedUp,KeyReturn,ReturnInTime) VALUES
 	('1','123478','2018-12-03 11:45','2018-12-03 12:15',NULL,NULL,0),
-	('2','369852','2018-12-04 08:45','2018-12-04 09:15',NULL,NULL,0),
-	('3','258147','2018-12-04 15:45','2018-12-04 16:15',NULL,NULL,0);	
+	('2','369852','2018-12-04 08:45','2018-12-04 09:15',NULL,NULL,0);	
+	
 
 INSERT INTO Section (Sections,Year,Program) VALUES
 	('A',4,0),
