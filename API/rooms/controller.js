@@ -5,6 +5,7 @@ module.exports = {
     console.log(data);
     if (data) {
       let response = await RoomModel.getRoom(data);
+      return response;
     }
     let response = await RoomModel.getAllRooms();
     return response;

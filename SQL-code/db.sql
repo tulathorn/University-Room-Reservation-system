@@ -164,7 +164,7 @@ INSERT INTO Section (Sections,Year,Program) VALUES
 INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
 	('honhon015@hotmail.com','Door Locked','I can not open the locked door','2019-01-16 23:39'),
 	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
-	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42')
+	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42');
 
 
 

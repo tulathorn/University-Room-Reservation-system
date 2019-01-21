@@ -88,13 +88,15 @@ const EquipmentModel = sequelize.define(
   }
 );
 
-RoomInformationModel.hasOne(EquipmentModel);
+RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: "RoomID" });
 
 module.exports = {
   getAllRooms: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RoomInformationModel.findAll({});
+        let data = await RoomInformationModel.findAll({
+          include: [{ model: EquipmentModel, foreignKey: "RoomID" }]
+        });
         resolve(data);
       } catch (err) {
         console.log(err);
@@ -110,7 +112,7 @@ module.exports = {
           where: {
             ...condition
           },
-          include: [{ model: EquipmentModel, as: "RoomID" }]
+          include: [{ model: EquipmentModel, foreignKey: "RoomID" }]
         });
         resolve(data);
       } catch (err) {

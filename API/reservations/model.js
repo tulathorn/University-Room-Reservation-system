@@ -97,6 +97,12 @@ const RecurringReservationsModel = sequelize.define(
       type: Sequelize.TIME,
       allowNull: false
     },
+    Sections: {
+      type: Sequelize.INTEGER
+    },
+    SecChar: {
+      type: Sequelize.CHAR
+    },
     DateBooked: {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
