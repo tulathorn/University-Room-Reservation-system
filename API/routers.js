@@ -5,20 +5,6 @@ const userController = require("./users/controller");
 const roomController = require("./rooms/controller");
 
 const Mainrouters = (fastify, opts, next) => {
-  /**
-   * @swagger
-   * /:
-   *   get:
-   *     tags:
-   *       - root
-   *     description: Root of API
-   *     produces:
-   *       - application/json
-   *     responses:
-   *       200:
-   *         description: An array of users
-   *
-   */
   fastify.get("/", async (request, reply) => {
     reply.type("application/json").code(200);
     reply.send({ messege: "Welcome to RRS APi" });
@@ -59,6 +45,20 @@ const Mainrouters = (fastify, opts, next) => {
   fastify.post("/rooms", async (request, reply) => {
     console.log(request.query);
     const data = await roomController.create(request.body);
+    reply.type("application/json").code(200);
+    reply.send(data);
+  });
+
+  fastify.put("/rooms", async (request, reply) => {
+    console.log(request.query);
+    const data = await roomController.update(request.body);
+    reply.type("application/json").code(200);
+    reply.send(data);
+  });
+
+  fastify.delete("/rooms", async (request, reply) => {
+    console.log(request.query);
+    const data = await roomController.delete(request.query);
     reply.type("application/json").code(200);
     reply.send(data);
   });

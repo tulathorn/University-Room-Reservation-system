@@ -139,8 +139,16 @@ module.exports = {
   updateRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = "test";
-        resolve(data);
+        console.log("ID", args.RoomID);
+        let roomUpdate = await RoomInformationModel.update(args, {
+          where: { RoomID: args.RoomID }
+        });
+        console.log("Room update response", roomUpdate);
+        args.Equipment.RoomID = args.RoomID;
+        let equipmentUpdate = await EquipmentModel.update(args.Equipment, {
+          where: { RoomID: args.RoomID }
+        });
+        resolve(roomUpdate);
       } catch (err) {
         console.log(err);
         reject(err);
@@ -150,8 +158,13 @@ module.exports = {
   deleteRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = "test";
-        resolve(data);
+        let equipmentDestroy = await EquipmentModel.destroy({
+          where: { RoomID: args.RoomID }
+        });
+        let roomDestroy = await RoomInformationModel.destroy({
+          where: { RoomID: args.RoomID }
+        });
+        resolve(roomDestroy);
       } catch (err) {
         console.log(err);
         reject(err);

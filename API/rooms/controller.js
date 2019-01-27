@@ -18,13 +18,11 @@ module.exports = {
     return response;
   },
   update: async data => {
-    return {
-      message: "update room called"
-    };
+    let response = await RoomModel.updateRoom(data);
+    return response;
   },
   delete: async data => {
-    return {
-      message: "delete room called"
-    };
+    let response = await RoomModel.deleteRoom(data);
+    return response;
   }
 };
