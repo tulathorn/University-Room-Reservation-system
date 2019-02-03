@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../sequelize");
+const Sequelize = require('sequelize')
+const sequelize = require('../sequelize')
 
 const RoomUse = sequelize.define(
-  "RoomUse",
+  'RoomUse',
   {
     UsageID: {
       type: Sequelize.INTEGER,
@@ -46,4 +46,37 @@ const RoomUse = sequelize.define(
     freezeTableName: true,
     timestamps: false
   }
-);
+)
+
+module.exports = {
+  getCode: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = 'test'
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  create: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = 'test'
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  delete: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = 'test'
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+}

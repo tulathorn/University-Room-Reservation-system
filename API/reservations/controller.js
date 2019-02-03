@@ -1,6 +1,7 @@
 const ReservationsModel = require('./model')
 const UserController = require('../users/controller')
 const RoomController = require('../rooms/controller')
+const RoomUseController = require('../roomUse/controller')
 
 module.exports = {
   find: async data => {
@@ -21,6 +22,7 @@ module.exports = {
       }
     } else {
       response = await ReservationsModel.createReservation(data)
+      let code = await RoomUseController.createOnece(response.BookingID)
     }
     return response
   },
