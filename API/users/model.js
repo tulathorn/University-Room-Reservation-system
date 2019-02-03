@@ -42,6 +42,7 @@ const UserModel = sequelize.define(
 );
 
 module.exports = {
+  UserModel,
   getUser: args => {
     return new Promise(async (resolve, reject) => {
       try {

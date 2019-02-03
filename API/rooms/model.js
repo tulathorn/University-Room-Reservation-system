@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../sequelize");
+const Sequelize = require('sequelize')
+const sequelize = require('../sequelize')
 
 const RoomInformationModel = sequelize.define(
-  "RoomInformation",
+  'RoomInformation',
   {
     RoomID: {
       type: Sequelize.INTEGER,
@@ -51,10 +51,10 @@ const RoomInformationModel = sequelize.define(
     freezeTableName: true,
     timestamps: false
   }
-);
+)
 
 const EquipmentModel = sequelize.define(
-  "Equipment",
+  'Equipment',
   {
     RoomID: {
       type: Sequelize.INTEGER,
@@ -86,89 +86,90 @@ const EquipmentModel = sequelize.define(
     freezeTableName: true,
     timestamps: false
   }
-);
+)
 
-RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: "RoomID" });
+RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
 
 module.exports = {
+  RoomInformationModel,
   getAllRooms: args => {
     return new Promise(async (resolve, reject) => {
       try {
         let data = await RoomInformationModel.findAll({
-          include: [{ model: EquipmentModel, foreignKey: "RoomID" }]
-        });
-        resolve(data);
+          include: [{ model: EquipmentModel, foreignKey: 'RoomID' }]
+        })
+        resolve(data)
       } catch (err) {
-        console.log(err);
-        reject(err);
+        console.log(err)
+        reject(err)
       }
-    });
+    })
   },
   getRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let condition = args;
+        let condition = args
         let data = await RoomInformationModel.findAll({
           where: {
             ...condition
           },
-          include: [{ model: EquipmentModel, foreignKey: "RoomID" }]
-        });
-        resolve(data);
+          include: [{ model: EquipmentModel, foreignKey: 'RoomID' }]
+        })
+        resolve(data)
       } catch (err) {
-        console.log(err);
-        reject(err);
+        console.log(err)
+        reject(err)
       }
-    });
+    })
   },
   createRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let equipment = args.Equipment;
-        console.log("equipment", equipment);
-        let data = await RoomInformationModel.create(args);
-        equipment.RoomID = data.RoomID;
-        let equipmentCreate = await EquipmentModel.create(equipment);
-        resolve(data);
+        let equipment = args.Equipment
+        console.log('equipment', equipment)
+        let data = await RoomInformationModel.create(args)
+        equipment.RoomID = data.RoomID
+        let equipmentCreate = await EquipmentModel.create(equipment)
+        resolve(data)
       } catch (err) {
-        console.log(err);
-        reject(err);
+        console.log(err)
+        reject(err)
       }
-    });
+    })
   },
   updateRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log("ID", args.RoomID);
+        console.log('ID', args.RoomID)
         let roomUpdate = await RoomInformationModel.update(args, {
           where: { RoomID: args.RoomID }
-        });
-        console.log("Room update response", roomUpdate);
-        args.Equipment.RoomID = args.RoomID;
+        })
+        console.log('Room update response', roomUpdate)
+        args.Equipment.RoomID = args.RoomID
         let equipmentUpdate = await EquipmentModel.update(args.Equipment, {
           where: { RoomID: args.RoomID }
-        });
-        resolve(roomUpdate);
+        })
+        resolve(roomUpdate)
       } catch (err) {
-        console.log(err);
-        reject(err);
+        console.log(err)
+        reject(err)
       }
-    });
+    })
   },
   deleteRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
         let equipmentDestroy = await EquipmentModel.destroy({
           where: { RoomID: args.RoomID }
-        });
+        })
         let roomDestroy = await RoomInformationModel.destroy({
           where: { RoomID: args.RoomID }
-        });
-        resolve(roomDestroy);
+        })
+        resolve(roomDestroy)
       } catch (err) {
-        console.log(err);
-        reject(err);
+        console.log(err)
+        reject(err)
       }
-    });
+    })
   }
-};
+}
