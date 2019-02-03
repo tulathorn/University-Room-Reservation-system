@@ -152,5 +152,29 @@ module.exports = {
         reject(err)
       }
     })
+  },
+  updateReservation: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await ReservationsModel.update(args, {
+          where: { BookingID: args.BookingID }
+        })
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  deleteReservation: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await ReservationsModel.destroy({
+          where: { BookingID: args.BookingID }
+        })
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 }

@@ -7,16 +7,6 @@ module.exports = {
     return await ReservationsModel.getAllReservations(data)
   },
   create: async data => {
-    // let queryUser = {
-    //   UserID: data.UserID
-    // }
-    // let queryRoom = {
-    //   RoomID: data.RoomID
-    // }
-    // let UserInfo = await UserController.find(queryUser)
-    // let RoomInfo = await RoomController.find(queryRoom)
-    // let UserID = UserInfo.UserID
-    // let RoomID = RoomInfo.RoomID
     let condition = {
       Date: data.Date,
       StartTime: data.StartTime,
@@ -35,9 +25,22 @@ module.exports = {
     return response
   },
   update: async data => {
-    return {
-      message: 'update booking called'
+    let condition = {
+      Date: data.Date,
+      StartTime: data.StartTime,
+      EndTime: data.EndTime
     }
+    let response = {}
+    let validReservation = await ReservationsModel.getAllReservations(condition)
+    if (validReservation) {
+      response = {
+        Code: 1,
+        Error: 'Booking exist'
+      }
+    } else {
+      response = await ReservationsModel.updateReservation(data)
+    }
+    return response
   },
   delete: async data => {
     return {

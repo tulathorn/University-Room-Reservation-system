@@ -77,6 +77,12 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send(data)
   })
 
+  fastify.put('/reservations', async (request, reply) => {
+    const data = await reservationController.update(request.body)
+    reply.type('application/json').code(200)
+    reply.send(data)
+  })
+
   next()
 }
 module.exports = Mainrouters
