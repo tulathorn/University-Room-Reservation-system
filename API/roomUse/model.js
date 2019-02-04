@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../sequelize')
 
-const RoomUse = sequelize.define(
+const RoomUseModel = sequelize.define(
   'RoomUse',
   {
     UsageID: {
@@ -24,7 +24,7 @@ const RoomUse = sequelize.define(
     },
     PinAcceptStart: {
       type: Sequelize.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: Sequelize.NOW
     },
     PinAcceptEnd: {
@@ -39,7 +39,8 @@ const RoomUse = sequelize.define(
       allowNull: true
     },
     ReturnInTime: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.BOOLEAN,
+      allowNull: true
     }
   },
   {
@@ -62,7 +63,7 @@ module.exports = {
   create: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = 'test'
+        let data = await RoomUseModel.create(args)
         resolve(data)
       } catch (err) {
         reject(err)

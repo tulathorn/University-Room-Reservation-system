@@ -145,7 +145,6 @@ module.exports = {
   createReservation: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        // console.log('args', args)
         let data = await ReservationsModel.create(args)
         resolve(data)
       } catch (err) {

@@ -9,20 +9,27 @@ module.exports = {
   },
   create: async data => {
     let condition = {
+      RoomID: data.RoomID,
       Date: data.Date,
       StartTime: data.StartTime,
       EndTime: data.EndTime
     }
     let response = {}
     let validReservation = await ReservationsModel.getAllReservations(condition)
-    if (validReservation) {
+    console.log(validReservation)
+    if (!(validReservation = [''])) {
       response = {
         Code: 1,
         Error: 'Booking exist'
       }
     } else {
-      response = await ReservationsModel.createReservation(data)
-      let code = await RoomUseController.createOnece(response.BookingID)
+      let reservation = await ReservationsModel.createReservation(data)
+      let code = await RoomUseController.createOnece(reservation.BookingID)
+      // console.log('reservation', reservation)
+      // console.log('code', code)
+      reservation = reservation.dataValues
+      code = code.dataValues
+      response = { reservation, code }
     }
     return response
   },
@@ -34,7 +41,7 @@ module.exports = {
     }
     let response = {}
     let validReservation = await ReservationsModel.getAllReservations(condition)
-    if (validReservation) {
+    if ((validReservation = [''])) {
       response = {
         Code: 1,
         Error: 'Booking exist'
