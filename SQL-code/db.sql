@@ -132,9 +132,6 @@ INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,IsAdmin,IsBan) 
 	('58070503424','Yosita','Sitthiporn','janelibraus@gmail.com',0,0),
 	('58070503438','Arnan','Hirunratanakorn','honhon015@hotmail.com',0,0);
 
-INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
-	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'A',4,'2018-11-10 11:58','CPE Class'),
-	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'C',3,'2018-11-15 12:33','CPE Class2');
 
 INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBooked,Purpose) VALUES
 	('1','1','YWC Tutor Class',1,'2018/12/03','12:00','13:30','2018-11-22 11:34','Tutor'),
@@ -156,6 +153,11 @@ INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
 	('honhon015@hotmail.com','Door Locked','I can not open the locked door','2019-01-16 23:39'),
 	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
 	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42');
+
+	INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
+	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'A',4,'2018-11-10 11:58','CPE Class'),
+	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'C',3,'2018-11-15 12:33','CPE Class2');
+
 
 
 
