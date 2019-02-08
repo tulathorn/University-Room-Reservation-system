@@ -1,13 +1,18 @@
-https://gist.github.com/hofmannsven/9164408
-https://mariadb.com/kb/en/library/insert/
-https://stackoverflow.com/questions/25572871/how-to-make-a-mysql-table-with-date-and-time-columns
-/*------------------Create Database------------------*/
+
 create database RoomReservationSystem;
 
-/*------------------Use Database------------------*/
+
+
+
+
+
 use RoomReservationSystem;
 
-/*------------------Create Table------------------*/
+
+
+
+
+
 CREATE TABLE IF NOT EXISTS RoomInformation(
 	RoomID INT NOT NULL AUTO_INCREMENT,
     RoomName CHAR(8) NOT NULL,
@@ -62,22 +67,6 @@ CREATE TABLE IF NOT EXISTS Contact(
 	PRIMARY KEY(ContactID)
 );
 
-CREATE TABLE IF NOT EXISTS Reservations(
-	BookingID INT NOT NULL AUTO_INCREMENT,
-	RoomID INT NOT NULL,
-	UserID INT NOT NULL,
-	Title VARCHAR(256),
-	Day INT,
-	Date DATE,
-	StartTime TIME,
-	EndTime TIME,
-	DateBooked TIMESTAMP,
-	Purpose VARCHAR(256),
-	PRIMARY KEY(BookingID),
-	FOREIGN KEY(UserID) REFERENCES UserInfo(UserID),
-	FOREIGN KEY(RoomID) REFERENCES RoomInformation(RoomID)
-);
-
 CREATE TABLE IF NOT EXISTS RecurringReservations(
 	BookingID INT NOT NULL AUTO_INCREMENT,
 	RoomID INT NOT NULL,
@@ -100,6 +89,24 @@ CREATE TABLE IF NOT EXISTS RecurringReservations(
 	FOREIGN KEY(Sections) REFERENCES Section(ID)
 );
 
+CREATE TABLE IF NOT EXISTS Reservations(
+	BookingID INT NOT NULL AUTO_INCREMENT,
+	RID INT,
+	RoomID INT NOT NULL,
+	UserID INT NOT NULL,
+	Title VARCHAR(256),
+	Day INT,
+	Date DATE,
+	StartTime TIME,
+	EndTime TIME,
+	DateBooked TIMESTAMP,
+	Purpose VARCHAR(256),
+	PRIMARY KEY(BookingID),
+	FOREIGN KEY(RID) REFERENCES RecurringReservations(BookingID),
+	FOREIGN KEY(UserID) REFERENCES UserInfo(UserID),
+	FOREIGN KEY(RoomID) REFERENCES RoomInformation(RoomID)
+);
+
 CREATE TABLE IF NOT EXISTS RoomUse(
 	UsageID INT NOT NULL AUTO_INCREMENT,
 	BookingID INT,
@@ -116,7 +123,14 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 );
 
 
-/*------------------Insert Data------------------*/
+
+
+
+
+
+
+
+
 INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCapacity,ClosingDay,OpenTime,CloseTime) VALUES
 	('CPE1121','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,21,60,'0000011','08:00','20:00'),
 	('CB1402','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB1',4,2,50,'0000011','08:00','18:00'),
@@ -154,7 +168,7 @@ INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
 	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
 	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42');
 
-	INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
+INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
 	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'A',4,'2018-11-10 11:58','CPE Class'),
 	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'C',3,'2018-11-15 12:33','CPE Class2');
 
