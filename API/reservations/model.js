@@ -3,6 +3,7 @@ const sequelize = require('../sequelize')
 
 const { UserModel } = require('../users/model')
 const { RoomInformationModel } = require('../rooms/model')
+const { RecurringReservationsModel } = require('../recurring/model')
 
 const ReservationsModel = sequelize.define(
   'Reservations',
@@ -12,6 +13,10 @@ const ReservationsModel = sequelize.define(
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
+    },
+    RID: {
+      type: Sequelize.INTEGER,
+      allowNull: true
     },
     RoomID: {
       type: Sequelize.INTEGER,
