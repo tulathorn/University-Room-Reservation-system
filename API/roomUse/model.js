@@ -73,7 +73,7 @@ module.exports = {
   delete: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = 'test'
+        let data = await RoomUseModel.destroy({ where: { BookingID: args.BookingID } })
         resolve(data)
       } catch (err) {
         reject(err)

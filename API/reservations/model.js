@@ -95,6 +95,7 @@ module.exports = {
   updateReservation: args => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log(args)
         let data = await ReservationsModel.update(args, {
           where: { BookingID: args.BookingID }
         })

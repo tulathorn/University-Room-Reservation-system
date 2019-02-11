@@ -26,6 +26,6 @@ module.exports = {
     return 'response'
   },
   delete: async data => {
-    return 'response'
+    return await RoomUseModel.delete(data)
   }
 }

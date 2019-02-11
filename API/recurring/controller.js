@@ -1,6 +1,8 @@
 const RecurringReservationsModel = require('./model')
 const ReservationsController = require('../reservations/controller')
 
+const moment = require('moment')
+
 const validateReservation = async () => {
   let result = true
   let data = await ReservationsController.getAllReservations(condition)
