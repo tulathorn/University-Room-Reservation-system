@@ -3,6 +3,7 @@ const sequelize = require('../sequelize')
 
 const { UserModel } = require('../users/model')
 const { RoomInformationModel } = require('../rooms/model')
+const { RecurringReservationsModel } = require('../recurring/model')
 
 const ReservationsModel = sequelize.define(
   'Reservations',
@@ -12,6 +13,10 @@ const ReservationsModel = sequelize.define(
       primaryKey: true,
       allowNull: false,
       autoIncrement: true
+    },
+    RID: {
+      type: Sequelize.INTEGER,
+      allowNull: true
     },
     RoomID: {
       type: Sequelize.INTEGER,
@@ -90,6 +95,7 @@ module.exports = {
   updateReservation: args => {
     return new Promise(async (resolve, reject) => {
       try {
+        console.log(args)
         let data = await ReservationsModel.update(args, {
           where: { BookingID: args.BookingID }
         })

@@ -25,8 +25,7 @@ module.exports = {
     } else {
       let reservation = await ReservationsModel.createReservation(data)
       let code = await RoomUseController.createOnece(reservation.BookingID)
-      // console.log('reservation', reservation)
-      // console.log('code', code)
+
       reservation = reservation.dataValues
       code = code.dataValues
       response = { reservation, code }
@@ -40,8 +39,10 @@ module.exports = {
       EndTime: data.EndTime
     }
     let response = {}
-    let validReservation = await ReservationsModel.getAllReservations(condition)
-    if ((validReservation = [''])) {
+    let validReservation = {}
+    validReservation = await ReservationsModel.getAllReservations(condition)
+    console.log(validReservation)
+    if (!(validReservation = [''])) {
       response = {
         Code: 1,
         Error: 'Booking exist'
@@ -52,8 +53,9 @@ module.exports = {
     return response
   },
   delete: async data => {
-    return {
-      message: 'delete booking called'
-    }
+    let roomUseDelete = await RoomUseController.delete(data)
+    console.log(roomUseDelete)
+    let response = await ReservationsModel.deleteReservation(data)
+    return response
   }
 }

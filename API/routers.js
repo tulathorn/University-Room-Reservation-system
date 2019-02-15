@@ -11,6 +11,7 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send({ messege: 'Welcome to RRS APi' })
   })
 
+  // User Router
   fastify.get('/users', async (request, reply) => {
     console.log(request.query)
     const data = await userController.find(request.query)
@@ -36,6 +37,7 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send(data)
   })
 
+  // Room Router
   fastify.get('/rooms', async (request, reply) => {
     console.log(request.query)
     const data = await roomController.find(request.query)
@@ -64,6 +66,7 @@ const Mainrouters = (fastify, opts, next) => {
     reply.send(data)
   })
 
+  // Reservation Router
   fastify.get('/reservations', async (request, reply) => {
     console.log(request.query)
     const data = await reservationController.find(request.query)
@@ -79,6 +82,12 @@ const Mainrouters = (fastify, opts, next) => {
 
   fastify.put('/reservations', async (request, reply) => {
     const data = await reservationController.update(request.body)
+    reply.type('application/json').code(200)
+    reply.send(data)
+  })
+
+  fastify.delete('/reservations', async (request, reply) => {
+    const data = await reservationController.delete(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })

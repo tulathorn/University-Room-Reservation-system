@@ -67,6 +67,7 @@ const RecurringReservationsModel = sequelize.define(
 )
 
 module.exports = {
+  RecurringReservationsModel,
   getRecurring: args => {
     return new Promise(async (resolve, reject) => {
       try {

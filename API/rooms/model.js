@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../sequelize')
 
+// const ReservationMode = require('../reservations/model')
+
 const RoomInformationModel = sequelize.define(
   'RoomInformation',
   {
@@ -89,6 +91,7 @@ const EquipmentModel = sequelize.define(
 )
 
 RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
+// RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
 
 module.exports = {
   RoomInformationModel,
