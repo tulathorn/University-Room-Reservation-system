@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS UserInfo(
 	FirstName VARCHAR(32) NOT NULL,
 	LastName VARCHAR(32) NOT NULL,
 	EmailAddress VARCHAR(64),
+	PhoneNumber CHAR(10),
 	IsAdmin BOOLEAN NOT NULL,
 	IsBan BOOLEAN,
 	PRIMARY KEY(UserID)
@@ -141,10 +142,10 @@ INSERT INTO Equipment VALUES
 	('2',1,1,1,1,0,0),
 	('3',0,0,0,0,1,0);
 
-INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,IsAdmin,IsBan) VALUES
-	('58070503412','Tulathorn','Sripongpankul','tul.tulathorn@gmail.com',1,0),
-	('58070503424','Yosita','Sitthiporn','janelibraus@gmail.com',0,0),
-	('58070503438','Arnan','Hirunratanakorn','honhon015@hotmail.com',0,0);
+INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,PhoneNumber,IsAdmin,IsBan) VALUES
+	('58070503412','Tulathorn','Sripongpankul','tul.tulathorn@gmail.com',0821112222,1,0),
+	('58070503424','Yosita','Sitthiporn','janelibraus@gmail.com',0921234567,0,0),
+	('58070503438','Arnan','Hirunratanakorn','honhon015@hotmail.com',0684754545,0,0);
 
 
 INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBooked,Purpose) VALUES
