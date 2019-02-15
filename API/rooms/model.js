@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../sequelize')
 
-// const ReservationMode = require('../reservations/model')
+// const ReservationsSchema = require('../reservations/schema')
 
 const RoomInformationModel = sequelize.define(
   'RoomInformation',
@@ -92,6 +92,8 @@ const EquipmentModel = sequelize.define(
 
 RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
 // RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
+// RoomInformationModel.hasMany(ReservationMode)
+// RoomInformationModel.belongsToMany(ReservationsSchema, { through: 'Reservations' })
 
 module.exports = {
   RoomInformationModel,
@@ -99,7 +101,10 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         let data = await RoomInformationModel.findAll({
-          include: [{ model: EquipmentModel, foreignKey: 'RoomID' }]
+          include: [
+            { model: EquipmentModel, foreignKey: 'RoomID' }
+            // { model: ReservationsSchema, foreignKey: 'RoomID' }
+          ]
         })
         resolve(data)
       } catch (err) {
@@ -116,7 +121,10 @@ module.exports = {
           where: {
             ...condition
           },
-          include: [{ model: EquipmentModel, foreignKey: 'RoomID' }]
+          include: [
+            { model: EquipmentModel, foreignKey: 'RoomID' }
+            // { model: ReservationsSchema, foreignKey: 'RoomID' }
+          ]
         })
         resolve(data)
       } catch (err) {

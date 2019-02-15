@@ -64,6 +64,7 @@ ReservationsModel.belongsTo(UserModel, { foreignKey: 'UserID' })
 ReservationsModel.belongsTo(RoomInformationModel, { foreignKey: 'RoomID' })
 
 module.exports = {
+  ReservationsModel,
   getAllReservations: args => {
     return new Promise(async (resolve, reject) => {
       try {
