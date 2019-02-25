@@ -22,14 +22,6 @@ const ReservationsSchema = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    Title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    Day: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
     Date: {
       type: Sequelize.DATEONLY,
       allowNull: false

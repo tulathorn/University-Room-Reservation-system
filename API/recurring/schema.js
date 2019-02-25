@@ -18,10 +18,6 @@ const RecurringReservationsSchema = sequelize.define(
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    Title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
     Term: {
       type: Sequelize.CHAR,
       allowNull: false
@@ -48,9 +44,6 @@ const RecurringReservationsSchema = sequelize.define(
     },
     Sections: {
       type: Sequelize.INTEGER
-    },
-    SecChar: {
-      type: Sequelize.CHAR
     },
     DateBooked: {
       type: Sequelize.DATE,
