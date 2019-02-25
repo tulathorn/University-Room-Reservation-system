@@ -3,6 +3,8 @@ const sequelize = require('../sequelize')
 
 // const ReservationsSchema = require('../reservations/schema')
 
+const { ReservationsModel } = require('../reservations/model')
+
 const RoomInformationModel = sequelize.define(
   'RoomInformation',
   {
@@ -90,10 +92,20 @@ const EquipmentModel = sequelize.define(
   }
 )
 
-RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
-// RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
-// RoomInformationModel.hasMany(ReservationMode)
-// RoomInformationModel.belongsToMany(ReservationsSchema, { through: 'Reservations' })
+RoomInformationModel.associate = model => {
+  model.RoomInformationModel.belongsTo(model.EquipmentModel, {
+    onDelete: 'CASCADE',
+    foreignKey: {
+      allowNull: false
+    }
+  })
+  model.RoomInformationModel.hasMany(model.ReservationsModel)
+}
+
+// RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
+// // RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
+// RoomInformationModel.hasMany(ReservationsModel, { as: 'Reservations', foreignKey: 'RoomID' })
+// // RoomInformationModel.belongsToMany(ReservationsSchema, { through: 'Reservations' })
 
 module.exports = {
   RoomInformationModel,
@@ -102,8 +114,8 @@ module.exports = {
       try {
         let data = await RoomInformationModel.findAll({
           include: [
-            { model: EquipmentModel, foreignKey: 'RoomID' }
-            // { model: ReservationsSchema, foreignKey: 'RoomID' }
+            { model: EquipmentModel, foreignKey: 'RoomID' },
+            { model: ReservationsModel, foreignKey: 'RoomID' }
           ]
         })
         resolve(data)
@@ -122,8 +134,8 @@ module.exports = {
             ...condition
           },
           include: [
-            { model: EquipmentModel, foreignKey: 'RoomID' }
-            // { model: ReservationsSchema, foreignKey: 'RoomID' }
+            { model: EquipmentModel, foreignKey: 'RoomID' },
+            { model: ReservationsModel, foreignKey: 'RoomID' }
           ]
         })
         resolve(data)

@@ -60,8 +60,23 @@ const ReservationsModel = sequelize.define(
   }
 )
 
-ReservationsModel.belongsTo(UserModel, { foreignKey: 'UserID' })
-ReservationsModel.belongsTo(RoomInformationModel, { foreignKey: 'RoomID' })
+ReservationsModel.associate = model => {
+  model.ReservationsModel.belongsTo(model.UserModel, { foreignKey: 'UserID' }),
+    model.ReservationsModel.belongsTo(model.RoomInformationModel, {
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false
+      }
+    })
+}
+
+// ReservationsModel.associate = model => {
+//   model.ReservationsModel.belongsTo(UserModel, { foreignKey: 'UserID' })
+// }
+
+// ReservationsModel.belongsTo(UserModel, { foreignKey: 'UserID' })
+// ReservationsModel.hasOne(RoomInformationModel, { foreignKey: 'RoomID' })
+// ReservationsModel.belongsTo(RoomInformationModel, { foreignKey: 'RoomID' })
 
 module.exports = {
   ReservationsModel,
