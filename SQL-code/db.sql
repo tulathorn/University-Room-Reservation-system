@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Equipment(
 );
 
 CREATE TABLE IF NOT EXISTS UserInfo(
-    UserID INT NOT NULL AUTO_INCREMENT,
+  UserID INT NOT NULL AUTO_INCREMENT,
 	UsernameID CHAR(32) NOT NULL,
 	FirstName VARCHAR(32) NOT NULL,
 	LastName VARCHAR(32) NOT NULL,
@@ -133,7 +133,7 @@ INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCa
 	('CB1402','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB1',4,2,50,'0000011','08:00','18:00'),
 	('CB2602','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB2',6,2,70,'0000000','10:00','22:00');
 
-INSERT INTO Equipment VALUES
+INSERT INTO Equipment (RoomID,HasTeacherComputers,HasStudentComputers,HasProjector,HasAirConditioner,HasWhiteboard,HasVisualizer) VALUES
 	('1',1,0,1,1,1,1),
 	('2',1,1,1,1,0,0),
 	('3',0,0,0,0,1,0);
