@@ -1,68 +1,13 @@
 const Sequelize = require('sequelize')
 const sequelize = require('../sequelize')
 
+const ReservationsSchema = require('./schema')
 const { UserModel } = require('../users/model')
 const { RoomInformationModel } = require('../rooms/model')
-const { RecurringReservationsModel } = require('../recurring/model')
 
-const ReservationsModel = sequelize.define(
-  'Reservations',
-  {
-    BookingID: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true
-    },
-    RID: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    RoomID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    UserID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    Title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    Day: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    Date: {
-      type: Sequelize.DATEONLY,
-      allowNull: false
-    },
-    StartTime: {
-      type: Sequelize.TIME,
-      allowNull: false
-    },
-    EndTime: {
-      type: Sequelize.TIME,
-      allowNull: false
-    },
-    DateBooked: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    Purpose: {
-      type: Sequelize.STRING
-    }
-  },
-  {
-    freezeTableName: true,
-    timestamps: false
-  }
-)
-
-ReservationsModel.associate = model => {
-  model.ReservationsModel.belongsTo(model.UserModel, { foreignKey: 'UserID' }),
-    model.ReservationsModel.belongsTo(model.RoomInformationModel, {
+ReservationsSchema.associate = model => {
+  model.ReservationsSchema.belongsTo(model.UserModel, { foreignKey: 'UserID' }),
+    model.ReservationsSchema.belongsTo(model.RoomInformationModel, {
       onDelete: 'CASCADE',
       foreignKey: {
         allowNull: false
@@ -79,12 +24,11 @@ ReservationsModel.associate = model => {
 // ReservationsModel.belongsTo(RoomInformationModel, { foreignKey: 'RoomID' })
 
 module.exports = {
-  ReservationsModel,
   getAllReservations: args => {
     return new Promise(async (resolve, reject) => {
       try {
         // console.log(args)
-        let data = await ReservationsModel.findAll({
+        let data = await ReservationsSchema.findAll({
           where: { ...args },
           include: [
             { model: UserModel, foreignKey: 'UserID' },
@@ -101,7 +45,7 @@ module.exports = {
   createReservation: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await ReservationsModel.create(args)
+        let data = await ReservationsSchema.create(args)
         resolve(data)
       } catch (err) {
         reject(err)
@@ -112,7 +56,7 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         console.log(args)
-        let data = await ReservationsModel.update(args, {
+        let data = await ReservationsSchema.update(args, {
           where: { BookingID: args.BookingID }
         })
         resolve(data)
@@ -124,7 +68,7 @@ module.exports = {
   deleteReservation: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await ReservationsModel.destroy({
+        let data = await ReservationsSchema.destroy({
           where: { BookingID: args.BookingID }
         })
         resolve(data)

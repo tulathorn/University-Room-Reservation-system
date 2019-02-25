@@ -2,120 +2,32 @@ const Sequelize = require('sequelize')
 const sequelize = require('../sequelize')
 
 // const ReservationsSchema = require('../reservations/schema')
+const { RoomInformationSchema, EquipmentSchema } = require('./schema')
+const ReservationsSchema = require('../reservations/schema')
 
-const { ReservationsModel } = require('../reservations/model')
-
-const RoomInformationModel = sequelize.define(
-  'RoomInformation',
-  {
-    RoomID: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true
-    },
-    RoomName: {
-      type: Sequelize.CHAR,
-      allowNull: false
-    },
-    Picture: {
-      type: Sequelize.STRING,
-      allowNull: true
-    },
-    Building: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    Floor: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    RoomNumber: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    PeopleCapacity: {
-      type: Sequelize.INTEGER,
-      allowNull: true
-    },
-    ClosingDay: {
-      type: Sequelize.CHAR,
-      allowNull: true
-    },
-    OpenTime: {
-      type: Sequelize.TIME,
-      allowNull: true
-    },
-    CloseTime: {
-      type: Sequelize.TIME,
-      allowNull: true
-    }
-  },
-  {
-    freezeTableName: true,
-    timestamps: false
-  }
-)
-
-const EquipmentModel = sequelize.define(
-  'Equipment',
-  {
-    RoomID: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      allowNull: false
-    },
-    HasTeacherComputers: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true
-    },
-    HasStudentComputers: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true
-    },
-    HasProjector: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true
-    },
-    HasWhiteboard: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true
-    },
-    HasVisualizer: {
-      type: Sequelize.BOOLEAN,
-      allowNull: true
-    }
-  },
-  {
-    freezeTableName: true,
-    timestamps: false
-  }
-)
-
-RoomInformationModel.associate = model => {
-  model.RoomInformationModel.belongsTo(model.EquipmentModel, {
+RoomInformationSchema.associate = model => {
+  model.RoomInformationSchema.belongsTo(model.EquipmentSchema, {
     onDelete: 'CASCADE',
     foreignKey: {
       allowNull: false
     }
   })
-  model.RoomInformationModel.hasMany(model.ReservationsModel)
+  model.RoomInformationSchema.hasMany(model.ReservationsSchema)
 }
 
-// RoomInformationModel.belongsTo(EquipmentModel, { foreignKey: 'RoomID' })
+// RoomInformationSchema.belongsTo(EquipmentSchema, { foreignKey: 'RoomID' })
 // // RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
-// RoomInformationModel.hasMany(ReservationsModel, { as: 'Reservations', foreignKey: 'RoomID' })
+// RoomInformationModel.hasMany(ReservationsSchema, { as: 'Reservations', foreignKey: 'RoomID' })
 // // RoomInformationModel.belongsToMany(ReservationsSchema, { through: 'Reservations' })
 
 module.exports = {
-  RoomInformationModel,
   getAllRooms: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RoomInformationModel.findAll({
+        let data = await RoomInformationSchema.findAll({
           include: [
-            { model: EquipmentModel, foreignKey: 'RoomID' },
-            { model: ReservationsModel, foreignKey: 'RoomID' }
+            { model: EquipmentSchema, foreignKey: 'RoomID' },
+            { model: ReservationsSchema, foreignKey: 'RoomID' }
           ]
         })
         resolve(data)
@@ -129,13 +41,13 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         let condition = args
-        let data = await RoomInformationModel.findAll({
+        let data = await RoomInformationSchema.findAll({
           where: {
             ...condition
           },
           include: [
-            { model: EquipmentModel, foreignKey: 'RoomID' },
-            { model: ReservationsModel, foreignKey: 'RoomID' }
+            { model: EquipmentSchema, foreignKey: 'RoomID' },
+            { model: ReservationsSchema, foreignKey: 'RoomID' }
           ]
         })
         resolve(data)
@@ -150,9 +62,9 @@ module.exports = {
       try {
         let equipment = args.Equipment
         console.log('equipment', equipment)
-        let data = await RoomInformationModel.create(args)
+        let data = await RoomInformationSchema.create(args)
         equipment.RoomID = data.RoomID
-        let equipmentCreate = await EquipmentModel.create(equipment)
+        let equipmentCreate = await EquipmentSchema.create(equipment)
         resolve(data)
       } catch (err) {
         console.log(err)
@@ -164,12 +76,12 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         console.log('ID', args.RoomID)
-        let roomUpdate = await RoomInformationModel.update(args, {
+        let roomUpdate = await RoomInformationSchema.update(args, {
           where: { RoomID: args.RoomID }
         })
         console.log('Room update response', roomUpdate)
         args.Equipment.RoomID = args.RoomID
-        let equipmentUpdate = await EquipmentModel.update(args.Equipment, {
+        let equipmentUpdate = await EquipmentSchema.update(args.Equipment, {
           where: { RoomID: args.RoomID }
         })
         resolve(roomUpdate)
@@ -182,10 +94,10 @@ module.exports = {
   deleteRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let equipmentDestroy = await EquipmentModel.destroy({
+        let equipmentDestroy = await EquipmentSchema.destroy({
           where: { RoomID: args.RoomID }
         })
-        let roomDestroy = await RoomInformationModel.destroy({
+        let roomDestroy = await RoomInformationSchema.destroy({
           where: { RoomID: args.RoomID }
         })
         resolve(roomDestroy)

@@ -1,77 +1,13 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../sequelize')
+// const Sequelize = require('sequelize')
+// const sequelize = require('../sequelize')
 
-const RecurringReservationsModel = sequelize.define(
-  'RecurringReservations',
-  {
-    BookingID: {
-      type: Sequelize.INTEGER,
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true
-    },
-    RoomID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    UserID: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    Title: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    Term: {
-      type: Sequelize.CHAR,
-      allowNull: false
-    },
-    Day: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    StartDate: {
-      type: Sequelize.DATEONLY,
-      allowNull: false
-    },
-    EndDate: {
-      type: Sequelize.DATEONLY,
-      allowNull: false
-    },
-    StartTime: {
-      type: Sequelize.TIME,
-      allowNull: false
-    },
-    EndTime: {
-      type: Sequelize.TIME,
-      allowNull: false
-    },
-    Sections: {
-      type: Sequelize.INTEGER
-    },
-    SecChar: {
-      type: Sequelize.CHAR
-    },
-    DateBooked: {
-      type: Sequelize.DATE,
-      defaultValue: Sequelize.NOW
-    },
-    Purpose: {
-      type: Sequelize.STRING
-    }
-  },
-  {
-    freezeTableName: true,
-    timestamps: false
-  }
-)
+const RecurringReservationsSchema = require('./schema')
 
 module.exports = {
-  RecurringReservationsModel,
   getRecurring: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RecurringReservationsModel.findAll({
+        let data = await RecurringReservationsSchema.findAll({
           where: { ...args }
         })
         resolve(data)
@@ -84,7 +20,7 @@ module.exports = {
   createRecurring: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RecurringReservationsModel.create(args)
+        let data = await RecurringReservationsSchema.create(args)
         resolve(data)
       } catch (err) {
         console.log(err)
@@ -95,7 +31,7 @@ module.exports = {
   updateRecurring: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RecurringReservationsModel.update(args, {
+        let data = await RecurringReservationsSchema.update(args, {
           where: { BookingID: args.BookingID }
         })
         resolve(data)
@@ -108,7 +44,7 @@ module.exports = {
   deleteRecurring: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RecurringReservationsModel.destroy(args, {
+        let data = await RecurringReservationsSchema.destroy(args, {
           where: { BookingID: args.BookingID }
         })
         resolve(data)
