@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS RoomInformation(
 );
 
 CREATE TABLE IF NOT EXISTS Equipment(
+	EquipID INT NOT NULL AUTO_INCREMENT,
 	RoomID INT NOT NULL,
 	HasTeacherComputers BOOLEAN,
 	HasStudentComputers BOOLEAN,
@@ -35,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Equipment(
 	HasAirConditioner BOOLEAN,
 	HasWhiteboard BOOLEAN,
 	HasVisualizer BOOLEAN,
-	PRIMARY KEY(RoomID),
+	PRIMARY KEY(EquipID),
 	FOREIGN KEY(RoomID) REFERENCES RoomInformation(RoomID) 
 );
 
