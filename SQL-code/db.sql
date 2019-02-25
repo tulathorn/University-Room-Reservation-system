@@ -15,7 +15,7 @@ use RoomReservationSystem;
 
 CREATE TABLE IF NOT EXISTS RoomInformation(
 	RoomID INT NOT NULL AUTO_INCREMENT,
-    RoomName CHAR(8) NOT NULL,
+  RoomName CHAR(8) NOT NULL,
 	Picture VARCHAR(256),
 	Building VARCHAR(64) NOT NULL,
 	Floor INT,
@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS RecurringReservations(
 	BookingID INT NOT NULL AUTO_INCREMENT,
 	RoomID INT NOT NULL,
 	UserID INT NOT NULL,
-	Title VARCHAR(256),
 	Term CHAR(6),
 	StartDate DATE,
 	EndDate DATE,
@@ -80,8 +79,6 @@ CREATE TABLE IF NOT EXISTS RecurringReservations(
 	StartTime TIME,
 	EndTime TIME,
 	Sections INT,
-	SecChar VARCHAR(64),
-	Year INT,
 	DateBooked TIMESTAMP,
 	Purpose VARCHAR(256),
 	PRIMARY KEY(BookingID),
@@ -95,8 +92,6 @@ CREATE TABLE IF NOT EXISTS Reservations(
 	RID INT,
 	RoomID INT NOT NULL,
 	UserID INT NOT NULL,
-	Title VARCHAR(256),
-	Day INT,
 	Date DATE,
 	StartTime TIME,
 	EndTime TIME,
@@ -148,10 +143,10 @@ INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,PhoneNumber,IsA
 	('58070503438','Arnan','Hirunratanakorn','honhon015@hotmail.com',0684754545,0,0);
 
 
-INSERT INTO Reservations (RoomID,UserID,Title,Day,Date,StartTime,EndTime,DateBooked,Purpose) VALUES
-	('1','1','YWC Tutor Class',1,'2018/12/03','12:00','13:30','2018-11-22 11:34','Tutor'),
-	('2','2','Activity',2,'2018/12/04','09:00','11:00','2018-11-18 14:42','Meeting for activity'),
-	('3','3','Meeting YWC',2,'2018/12/04','16:00','20:00','2018-11-24 09:08','YWC Camp');
+INSERT INTO Reservations (RoomID,UserID,Date,StartTime,EndTime,DateBooked,Purpose) VALUES
+	('1','1','2018/12/03','12:00','13:30','2018-11-22 11:34','Tutor'),
+	('2','2','2018/12/04','09:00','11:00','2018-11-18 14:42','Meeting for activity'),
+	('3','3','2018/12/04','16:00','20:00','2018-11-24 09:08','YWC Camp');
 	
 INSERT INTO RoomUse (BookingID,Pin,PinAcceptStart,PinAcceptEnd,KeyPickedUp,KeyReturn,ReturnInTime) VALUES
 	('1','123478','2018-12-03 11:45','2018-12-03 12:15',NULL,NULL,0),
@@ -169,9 +164,9 @@ INSERT INTO Contact (EmailAddress,Title,Detail,DateTime) VALUES
 	('janelibraus@gmail.com','Forgot password','I forgot my password','2019-01-21 15:02'),
 	('tul.tulathorn@gmail.com','Key box Can not Open','I can not open the key box','2019-01-04 14:42');
 
-INSERT INTO RecurringReservations (RoomID,UserID,Title,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,SecChar,Year,DateBooked,Purpose) VALUES
-	('2','2','CPEXX Class','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'A',4,'2018-11-10 11:58','CPE Class'),
-	('1','3','CPEYY Class','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'C',3,'2018-11-15 12:33','CPE Class2');
+INSERT INTO RecurringReservations (RoomID,UserID,Term,StartDate,EndDate,Day,StartTime,EndTime,Sections,DateBooked,Purpose) VALUES
+	('2','2','1/2018','2018/12/06','2019/03/10',4,'13:00','16:00',1,'2018-11-10 11:58','CPE Class'),
+	('1','3','1/2018','2018/12/14','2018/12/28',5,'09:00','12:00',3,'2018-11-15 12:33','CPE Class2');
 
 
 
