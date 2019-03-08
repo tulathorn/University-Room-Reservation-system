@@ -1,10 +1,18 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../sequelize')
+const Bookshelf = require('../bookshelf')
 
-const UserSchema = require('./schema')
+const Reservation = Bookshelf.model('Reservation', {
+  tableName: 'Reservations'
+})
+
+const User = Bookshelf.model('User', {
+  tableName: 'UserInfo',
+  reservations: function() {
+    return this.hasMany(Reservation, 'UserID', 'UserID')
+  }
+})
 
 module.exports = {
-  getUser: args => {
+  _getUser: args => {
     return new Promise(async (resolve, reject) => {
       try {
         let condition = args || ''
@@ -19,38 +27,33 @@ module.exports = {
       }
     })
   },
+  getUser: async args => {
+    const users = User.where({ ...args })
+      .fetchAll({ withRelated: ['reservations'] })
+      .then(data => data.toJSON())
+      .catch(err => err.toJSON())
+
+    return users
+  },
   createUser: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await UserSchema.create(args)
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const users = User.forge({ ...args })
+      .save()
+      .then(data => data.toJSON())
+      .catch(err => err.toJSON())
+    return users
   },
   updateUser: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await UserSchema.update(args, {
-          where: { UserID: args.UserID }
-        })
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const users = User.where('UserID', args.UserID)
+      .save(args, { method: 'update' })
+      .then(data => data.toJSON())
+      .catch(err => err.toJSON())
+    return users
   },
   deleteUser: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await UserSchema.destroy({
-          where: { UserID: args.UserID }
-        })
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const users = User.where('UserID', args.UserID)
+      .destroy()
+      .then(data => data)
+      .catch(err => err.toJSON())
+    return users
   }
 }
