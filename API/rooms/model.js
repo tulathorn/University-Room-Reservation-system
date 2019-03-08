@@ -1,55 +1,21 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../sequelize')
+const Bookshelf = require('../bookshelf')
 
-// const ReservationsSchema = require('../reservations/schema')
-const { RoomInformationSchema, EquipmentSchema } = require('./schema')
-const ReservationsSchema = require('../reservations/schema')
+const Equipment = Bookshelf.model('Equipment', {
+  tableName: 'Equipment'
+})
 
-RoomInformationSchema.associate = model => {
-  model.RoomInformationSchema.belongsTo(model.EquipmentSchema, {
-    onDelete: 'CASCADE',
-    foreignKey: {
-      allowNull: false
-    }
-  })
-  model.RoomInformationSchema.hasMany(model.ReservationsSchema)
-}
-
-// RoomInformationSchema.belongsTo(EquipmentSchema, { foreignKey: 'RoomID' })
-// // RoomInformationModel.belongsTo(ReservationMode, { foreignKey: 'RoomID' })
-// RoomInformationModel.hasMany(ReservationsSchema, { as: 'Reservations', foreignKey: 'RoomID' })
-// // RoomInformationModel.belongsToMany(ReservationsSchema, { through: 'Reservations' })
+const Room = Bookshelf.model('Room', {
+  tableName: 'RoomInformation',
+  Equipment: function() {
+    return this.belongsTo(Equipment, 'RoomID', 'RoomID')
+  }
+})
 
 module.exports = {
-  getAllRooms: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await RoomInformationSchema.findAll({
-          include: [
-            { model: EquipmentSchema, foreignKey: 'RoomID' },
-            { model: ReservationsSchema, foreignKey: 'RoomID' }
-          ]
-        })
-        resolve(data)
-      } catch (err) {
-        console.log(err)
-        reject(err)
-      }
-    })
-  },
   getRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let condition = args
-        let data = await RoomInformationSchema.findAll({
-          where: {
-            ...condition
-          },
-          include: [
-            { model: EquipmentSchema, foreignKey: 'RoomID' },
-            { model: ReservationsSchema, foreignKey: 'RoomID' }
-          ]
-        })
+        let data = await Room.where({ ...args }).fetchAll({ withRelated: ['Equipment'] })
         resolve(data)
       } catch (err) {
         console.log(err)
@@ -60,11 +26,14 @@ module.exports = {
   createRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let equipment = args.Equipment
-        console.log('equipment', equipment)
-        let data = await RoomInformationSchema.create(args)
-        equipment.RoomID = data.RoomID
-        let equipmentCreate = await EquipmentSchema.create(equipment)
+        const room = await Room.forge(args.room).save()
+        console.log(room.toJSON())
+        const equipmentBody = {
+          RoomID: room.id,
+          ...args.equipment
+        }
+        const equipment = await Equipment.forge(equipmentBody).save()
+        const data = { ...room.toJSON(), equipment }
         resolve(data)
       } catch (err) {
         console.log(err)
