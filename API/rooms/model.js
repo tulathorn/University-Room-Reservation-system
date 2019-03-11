@@ -44,16 +44,16 @@ module.exports = {
   updateRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log('ID', args.RoomID)
-        let roomUpdate = await RoomInformationSchema.update(args, {
-          where: { RoomID: args.RoomID }
-        })
-        console.log('Room update response', roomUpdate)
-        args.Equipment.RoomID = args.RoomID
-        let equipmentUpdate = await EquipmentSchema.update(args.Equipment, {
-          where: { RoomID: args.RoomID }
-        })
-        resolve(roomUpdate)
+        console.log('RoomID', args.room.RoomID)
+        const rooms = await Room.where('RoomID', args.room.RoomID)
+          .save(args.room, { method: 'update' })
+          .then(data => data.toJSON())
+        const equipment = await Equipment.where('RoomID', args.room.RoomID)
+          .save(args.equipment, { method: 'update' })
+          .then(data => data.toJSON())
+        const data = { ...rooms, equipment }
+        console.log('data', data)
+        resolve(data)
       } catch (err) {
         console.log(err)
         reject(err)
@@ -63,12 +63,13 @@ module.exports = {
   deleteRoom: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let equipmentDestroy = await EquipmentSchema.destroy({
-          where: { RoomID: args.RoomID }
-        })
-        let roomDestroy = await RoomInformationSchema.destroy({
-          where: { RoomID: args.RoomID }
-        })
+        const equipmentDestroy = await Equipment.where('RoomID', args.RoomID)
+          .destroy()
+          .then(data => data.toJSON())
+        const roomDestroy = await Room.where('RoomID', args.RoomID)
+          .destroy()
+          .then(data => data.toJSON())
+        console.log(equipmentDestroy && roomDestroy)
         resolve(roomDestroy)
       } catch (err) {
         console.log(err)

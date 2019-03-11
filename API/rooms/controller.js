@@ -43,7 +43,36 @@ module.exports = {
     return response
   },
   update: async data => {
-    let response = await RoomModel.updateRoom(data)
+    const room = R.pickAll(
+      [
+        'RoomID',
+        'RoomName',
+        'Picture',
+        'Building',
+        'Floor',
+        'RoomNumber',
+        'PeopleCapacity',
+        'ClosingDay',
+        'OpenTime',
+        'CloseTime'
+      ],
+      data
+    )
+    const equipment = R.pick(
+      [
+        'HasTeacherComputers',
+        'HasStudentComputers',
+        'HasProjector',
+        'HasAirConditioner',
+        'HasWhiteboard',
+        'HasVisualizer'
+      ],
+      data.Equipment
+    )
+
+    const body = { room, equipment }
+    console.log('input', body)
+    let response = await RoomModel.updateRoom(body)
     return response
   },
   delete: async data => {
