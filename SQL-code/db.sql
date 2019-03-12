@@ -15,7 +15,7 @@ use RoomReservationSystem;
 
 CREATE TABLE IF NOT EXISTS RoomInformation(
 	RoomID INT NOT NULL AUTO_INCREMENT,
-  RoomName CHAR(8) NOT NULL,
+  	RoomName CHAR(8) NOT NULL,
 	Picture VARCHAR(256),
 	Building VARCHAR(64) NOT NULL,
 	Floor INT,
@@ -128,15 +128,25 @@ CREATE TABLE IF NOT EXISTS RoomUse(
 
 
 
-INSERT INTO RoomInformation (RoomName,Picture,Building,Floor,RoomNumber,PeopleCapacity,ClosingDay,OpenTime,CloseTime) VALUES
-	('CPE1121','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,21,60,'0000011','08:00','20:00'),
-	('CB1402','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB1',4,2,50,'0000011','08:00','18:00'),
-	('CB2602','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','CB2',6,2,70,'0000000','10:00','22:00');
+INSERT INTO RoomInformation (RoomID,RoomName,Picture,Building,Floor,RoomNumber,PeopleCapacity,ClosingDay,OpenTime,CloseTime) VALUES
+	(1,'CPE1112','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,12,40,'0000000','08:00','21:00'),
+	(2,'CPE1113','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,13,60,'0000000','08:00','21:00'),
+	(3,'CPE1114','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,14,40,'0000000','08:00','21:00'),
+	(4,'CPE1115','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,15,80,'0000000','08:00','21:00'),
+	(5,'CPE1116','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,16,40,'0000000','08:00','21:00'),
+	(6,'CPE1119','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,19,40,'0000000','08:00','21:00'),
+	(7,'CPE1120','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,20,40,'0000000','08:00','21:00'),
+	(8,'CPE1121','https://pbs.twimg.com/profile_images/1084297574167662592/00yhgQKU_400x400.jpg','Witsawa Watthana',11,21,80,'0000000','08:00','21:00');
 
 INSERT INTO Equipment (RoomID,HasTeacherComputers,HasStudentComputers,HasProjector,HasAirConditioner,HasWhiteboard,HasVisualizer) VALUES
-	('1',1,0,1,1,1,1),
-	('2',1,1,1,1,0,0),
-	('3',0,0,0,0,1,0);
+	('1',1,1,1,1,1,1),
+	('2',1,1,1,1,1,1),
+	('3',1,0,1,1,1,1),
+	('4',1,0,1,1,1,1),
+	('5',1,0,1,1,1,1),
+	('6',0,1,1,1,1,0),
+	('7',1,1,1,1,1,1),
+	('8',1,0,1,1,1,1);
 
 INSERT INTO UserInfo (UsernameID,FirstName,LastName,EmailAddress,PhoneNumber,IsAdmin,IsBan) VALUES
 	('58070503412','Tulathorn','Sripongpankul','tul.tulathorn@gmail.com',0821112222,1,0),
