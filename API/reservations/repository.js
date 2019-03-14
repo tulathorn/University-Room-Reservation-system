@@ -1,4 +1,4 @@
-// const Reservation = require('./model')
+const { Reservation } = require('../model')
 
 module.exports = {
   getAllReservations: args => {
@@ -6,7 +6,7 @@ module.exports = {
       try {
         const Reservations = Reservation.where({ ...args })
           .fetchAll({
-            withRelated: ['UserInfo']
+            withRelated: ['userInfo']
           })
           .then(data => data.toJSON())
         resolve(Reservations)

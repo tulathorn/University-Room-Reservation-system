@@ -1,15 +1,4 @@
-const User = require('./model')
-
-// const Bookshelf = require('../bookshelf')
-
-// const Reservation = require('../reservations/model')
-
-// const User = Bookshelf.model('User', {
-//   tableName: 'UserInfo',
-//   reservations: function() {
-//     return this.hasMany(Reservation, 'UserID', 'ID')
-//   }
-// })
+const { User } = require('../model')
 
 module.exports = {
   _getUser: args => {
