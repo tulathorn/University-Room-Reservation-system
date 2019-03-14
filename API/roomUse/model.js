@@ -1,8 +1,7 @@
-const Bookshelf = require('../bookshelf')
+const Sequelize = require('sequelize')
+const sequelize = require('../sequelize')
 
-const RoomUse = Bookshelf.model('RoomUse', {
-  tableName: 'RoomUse'
-})
+const RoomUseSchema = require('./schema')
 
 module.exports = {
   getCode: args => {
@@ -18,10 +17,8 @@ module.exports = {
   create: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        const code = await RoomUse.forge({ ...args })
-          .save()
-          .then(data => data.toJSON())
-        resolve(code)
+        let data = await RoomUseSchemas.create(args)
+        resolve(data)
       } catch (err) {
         reject(err)
       }
@@ -30,9 +27,7 @@ module.exports = {
   delete: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        let data = await RoomUse.where('UsageID', args.UsageID)
-          .destroy()
-          .then(data => data.toJSON())
+        let data = await RoomUseSchemas.destroy({ where: { BookingID: args.BookingID } })
         resolve(data)
       } catch (err) {
         reject(err)
