@@ -14,4 +14,15 @@ const Reservation = Bookshelf.model('Reservation', {
   }
 })
 
-module.exports = { User, Reservation }
+const Equipment = Bookshelf.model('Equipment', {
+  tableName: 'Equipment'
+})
+
+const Room = Bookshelf.model('Room', {
+  tableName: 'RoomInformation',
+  Equipment: function() {
+    return this.belongsTo(Equipment, 'RoomID', 'RoomID')
+  }
+})
+
+module.exports = { User, Reservation, Room, Equipment }

@@ -1,4 +1,4 @@
-const { Room, Equipment } = require('./model')
+const { Room, Equipment } = require('../model')
 
 module.exports = {
   getRoom: args => {
