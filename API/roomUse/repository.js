@@ -1,7 +1,4 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../sequelize')
-
-const RoomUseSchema = require('./schema')
+const { RoomUse } = require('../model')
 
 module.exports = {
   getCode: args => {
@@ -14,10 +11,22 @@ module.exports = {
       }
     })
   },
-  create: args => {
+  _create: args => {
     return new Promise(async (resolve, reject) => {
       try {
         let data = await RoomUseSchemas.create(args)
+        resolve(data)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  create: args => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let data = await RoomUse.forge({ ...args })
+          .save()
+          .then(result => result.toJSON())
         resolve(data)
       } catch (err) {
         reject(err)

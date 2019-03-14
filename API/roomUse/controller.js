@@ -1,4 +1,4 @@
-const RoomUseModel = require('./model')
+const RoomUseRepo = require('./repository')
 
 const pinGenerate = () =>
   (pin =
@@ -16,10 +16,10 @@ module.exports = {
   createOnece: async data => {
     console.log(data)
     let buildData = {
-      BookingID: data,
+      BookingID: data.BookingID,
       Pin: pinGenerate()
     }
-    let response = await RoomUseModel.create(buildData)
+    let response = await RoomUseRepo.create(buildData)
     return response
   },
   update: async data => {

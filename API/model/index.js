@@ -35,4 +35,4 @@ const RoomUse = Bookshelf.model('RoomUse', {
   tableName: 'RoomUse'
 })
 
-module.exports = { User, Reservation, Room, Equipment }
+module.exports = { User, Reservation, Room, RoomUse, Equipment }

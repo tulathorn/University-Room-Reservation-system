@@ -4,6 +4,7 @@ const swaggerJSDoc = require('swagger-jsdoc')
 const userController = require('./users/controller')
 const roomController = require('./rooms/controller')
 const reservationController = require('./reservations/controller')
+const RoomUseController = require('./roomUse/controller')
 
 const Mainrouters = (fastify, opts, next) => {
   fastify.get('/', async (request, reply) => {
@@ -88,6 +89,12 @@ const Mainrouters = (fastify, opts, next) => {
 
   fastify.delete('/reservations', async (request, reply) => {
     const data = await reservationController.delete(request.query)
+    reply.type('application/json').code(200)
+    reply.send(data)
+  })
+
+  fastify.post('/pin', async (request, reply) => {
+    const data = RoomUseController.createOnece(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })
