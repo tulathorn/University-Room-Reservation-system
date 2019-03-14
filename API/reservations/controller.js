@@ -16,18 +16,16 @@ module.exports = {
     }
     let response = {}
     let validReservation = await ReservationRepo.getAllReservations(condition)
-    console.log(validReservation)
-    if (!(validReservation = [''])) {
+    console.log(validReservation.length)
+    if (validReservation === 0) {
       response = {
         Code: 1,
         Error: 'Booking exist'
       }
     } else {
       let reservation = await ReservationRepo.createReservation(data)
-      let code = await RoomUseController.createOnece(reservation.BookingID)
+      let code = await RoomUseController.createOnece(reservation.id)
 
-      reservation = reservation.dataValues
-      code = code.dataValues
       response = { reservation, code }
     }
     return response

@@ -34,13 +34,11 @@ module.exports = {
     })
   },
   delete: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await RoomUseSchemas.destroy({ where: { BookingID: args.BookingID } })
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const result = RoomUse.where('BookingID', args.BookingID)
+      .destroy()
+      .then(data => data.toJSON())
+      .catch(err => err)
+
+    return result
   }
 }

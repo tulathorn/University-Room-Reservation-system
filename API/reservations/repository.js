@@ -4,7 +4,7 @@ module.exports = {
   getAllReservations: args => {
     return new Promise(async (resolve, reject) => {
       try {
-        const Reservations = Reservation.where({ ...args })
+        const Reservations = await Reservation.where({ ...args })
           .fetchAll({
             withRelated: ['UserInfo', 'RoomInformation', 'RoomUse']
           })
@@ -16,39 +16,25 @@ module.exports = {
       }
     })
   },
-  createReservation: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await ReservationsSchema.create(args)
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+  createReservation: async args => {
+    const result = await Reservation.forge({ ...args })
+      .save()
+      .then(data => data.toJSON())
+      .catch(err => err)
+    return result
   },
   updateReservation: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        console.log(args)
-        let data = await ReservationsSchema.update(args, {
-          where: { BookingID: args.BookingID }
-        })
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const result = Reservation.where('BookingID', args.BookingID)
+      .save(args, { method: 'update' })
+      .then(data => data.toJSON())
+      .catch(err => err)
+    return result
   },
   deleteReservation: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await ReservationsSchema.destroy({
-          where: { BookingID: args.BookingID }
-        })
-        resolve(data)
-      } catch (err) {
-        reject(err)
-      }
-    })
+    const result = Reservation.where('BookingID', args.BookingID)
+      .destroy()
+      .then(data => data.toJSON())
+      .catch(err => err)
+    return result
   }
 }
