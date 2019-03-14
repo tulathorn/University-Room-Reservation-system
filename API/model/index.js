@@ -9,8 +9,14 @@ const User = Bookshelf.model('User', {
 
 const Reservation = Bookshelf.model('Reservation', {
   tableName: 'Reservations',
-  userInfo: function() {
+  UserInfo: function() {
     return this.belongsTo(User, 'UserID', 'UserID')
+  },
+  RoomInformation: function() {
+    return this.belongsTo(Room, 'RoomID', 'RoomID')
+  },
+  RoomUse: function() {
+    return this.belongsTo(RoomUse, 'BookingID', 'BookingID')
   }
 })
 
@@ -23,6 +29,10 @@ const Room = Bookshelf.model('Room', {
   Equipment: function() {
     return this.belongsTo(Equipment, 'RoomID', 'RoomID')
   }
+})
+
+const RoomUse = Bookshelf.model('RoomUse', {
+  tableName: 'RoomUse'
 })
 
 module.exports = { User, Reservation, Room, Equipment }

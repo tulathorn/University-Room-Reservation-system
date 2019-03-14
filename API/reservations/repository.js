@@ -6,7 +6,7 @@ module.exports = {
       try {
         const Reservations = Reservation.where({ ...args })
           .fetchAll({
-            withRelated: ['userInfo']
+            withRelated: ['UserInfo', 'RoomInformation', 'RoomUse']
           })
           .then(data => data.toJSON())
         resolve(Reservations)
