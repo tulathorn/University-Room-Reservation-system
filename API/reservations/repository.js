@@ -1,4 +1,4 @@
-const Reservation = require('./model')
+// const Reservation = require('./model')
 
 module.exports = {
   getAllReservations: args => {

@@ -43,14 +43,14 @@ module.exports = {
     return users
   },
   updateUser: args => {
-    const users = User.where('ID', args.ID)
+    const users = User.where('UserID', args.UserID)
       .save(args, { method: 'update' })
       .then(data => data.toJSON())
       .catch(err => err)
     return users
   },
   deleteUser: args => {
-    const users = User.where('ID', args.ID)
+    const users = User.where('UserID', args.UserID)
       .destroy()
       .then(data => data)
       .catch(err => err)
