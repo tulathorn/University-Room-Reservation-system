@@ -1,11 +1,11 @@
-const ReservationsModel = require('./model')
+const ReservationRepo = require('./repository')
 const UserController = require('../users/controller')
 const RoomController = require('../rooms/controller')
 const RoomUseController = require('../roomUse/controller')
 
 module.exports = {
   find: async data => {
-    return await ReservationsModel.getAllReservations(data)
+    return await ReservationRepo.getAllReservations(data)
   },
   create: async data => {
     let condition = {
@@ -15,7 +15,7 @@ module.exports = {
       EndTime: data.EndTime
     }
     let response = {}
-    let validReservation = await ReservationsModel.getAllReservations(condition)
+    let validReservation = await ReservationRepo.getAllReservations(condition)
     console.log(validReservation)
     if (!(validReservation = [''])) {
       response = {
@@ -23,7 +23,7 @@ module.exports = {
         Error: 'Booking exist'
       }
     } else {
-      let reservation = await ReservationsModel.createReservation(data)
+      let reservation = await ReservationRepo.createReservation(data)
       let code = await RoomUseController.createOnece(reservation.BookingID)
 
       reservation = reservation.dataValues
@@ -40,7 +40,7 @@ module.exports = {
     }
     let response = {}
     let validReservation = {}
-    validReservation = await ReservationsModel.getAllReservations(condition)
+    validReservation = await ReservationRepo.getAllReservations(condition)
     console.log(validReservation)
     if (!(validReservation = [''])) {
       response = {
@@ -48,14 +48,14 @@ module.exports = {
         Error: 'Booking exist'
       }
     } else {
-      response = await ReservationsModel.updateReservation(data)
+      response = await ReservationRepo.updateReservation(data)
     }
     return response
   },
   delete: async data => {
     let roomUseDelete = await RoomUseController.delete(data)
     console.log(roomUseDelete)
-    let response = await ReservationsModel.deleteReservation(data)
+    let response = await ReservationRepo.deleteReservation(data)
     return response
   }
 }

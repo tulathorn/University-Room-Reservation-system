@@ -1,5 +1,16 @@
 const User = require('./model')
 
+// const Bookshelf = require('../bookshelf')
+
+// const Reservation = require('../reservations/model')
+
+// const User = Bookshelf.model('User', {
+//   tableName: 'UserInfo',
+//   reservations: function() {
+//     return this.hasMany(Reservation, 'UserID', 'ID')
+//   }
+// })
+
 module.exports = {
   _getUser: args => {
     return new Promise(async (resolve, reject) => {
@@ -19,8 +30,8 @@ module.exports = {
   getUser: async args => {
     const users = User.where({ ...args })
       .fetchAll({ withRelated: ['reservations'] })
-      .then(data => data.toJSON())
-      .catch(err => err.toJSON())
+      .then(data => data)
+      .catch(err => err)
 
     return users
   },
@@ -28,7 +39,7 @@ module.exports = {
     const users = User.forge({ ...args })
       .save()
       .then(data => data.toJSON())
-      .catch(err => err.toJSON())
+      .catch(err => err)
     return users
   },
   updateUser: args => {

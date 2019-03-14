@@ -5,7 +5,7 @@ const Reservation = require('../reservations/model')
 const User = Bookshelf.model('User', {
   tableName: 'UserInfo',
   reservations: function() {
-    return this.hasMany(Reservation, 'UserID', 'UserID')
+    return this.hasMany(Reservation, 'UserID', 'ID')
   }
 })
 
