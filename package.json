@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "axios": "^0.18.0",
-    "cors": "^2.8.5",
-    "fastify-cors": "^1.0.0",
-    "moment": "^2.24.0"
-  }
-}
