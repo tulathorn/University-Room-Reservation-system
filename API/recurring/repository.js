@@ -1,32 +1,24 @@
 // const Sequelize = require('sequelize')
 // const sequelize = require('../sequelize')
 
-const RecurringReservationsSchema = require('./schema')
+const { RecurringReservations } = require('../model')
 
 module.exports = {
   getRecurring: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await RecurringReservationsSchema.findAll({
-          where: { ...args }
-        })
-        resolve(data)
-      } catch (err) {
-        console.log(err)
-        reject(err)
-      }
-    })
+    const result = RecurringReservations.where({ ...args })
+      .fetchAll({ withRelated: ['Reservation', 'Section'] })
+      .then(data => data.toJSON())
+      .catch(err => err)
+
+    return result
   },
   createRecurring: args => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        let data = await RecurringReservationsSchema.create(args)
-        resolve(data)
-      } catch (err) {
-        console.log(err)
-        reject(err)
-      }
-    })
+    const result = RecurringReservations.forge({ ...args })
+      .save()
+      .then(data => data.toJSON())
+      .catch(err => err)
+
+    return result
   },
   updateRecurring: args => {
     return new Promise(async (resolve, reject) => {

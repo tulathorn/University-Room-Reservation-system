@@ -1,50 +1,90 @@
-const RecurringReservationsModel = require('./model')
+const RecurringReservationsRepo = require('./repository')
 const ReservationsController = require('../reservations/controller')
 
 const moment = require('moment')
 
-const validateReservation = async () => {
-  let result = true
-  let data = await ReservationsController.getAllReservations(condition)
-  console.log(data)
-  if (!(data = [''])) {
-    result = false
+const validateReservation = async condition => {
+  let result = 0
+  let data = await ReservationsController.find(condition)
+  console.log('Reservation find =', data.length)
+  if (data.length === 0) {
+    result = 1
   }
   return result
 }
 
 module.exports = {
   find: async data => {
-    let response = await RecurringReservationsModel.getUser(data)
+    console.log(moment('2010-10-20').isBefore('2010-10-21'))
+    let response = await RecurringReservationsRepo.getRecurring(data)
     return response
   },
   create: async data => {
     let condition = {
       RoomID: data.RoomID,
-      Date: data.Date,
+      Date: data.StartDate,
       StartTime: data.StartTime,
       EndTime: data.EndTime
     }
     let response = {}
-    let validReservation = validateReservation(condition)
-    console.log(validReservation)
-    if (!(validReservation = [''])) {
-      response = {
-        Code: 1,
-        Error: 'Booking exist'
+    // let validReservation = validateReservation(condition)
+    // console.log(validReservation)
+    // if (validReservation === 0) {
+    //   response = {
+    //     Code: 1,
+    //     Error: 'Booking exist'
+    //   }
+    // } else {
+    //   console.log('Not found')
+    // }
+    // Loop check date
+    let checkDate = data.StartDate
+    while (moment(checkDate).isSameOrBefore(condition.EndDate)) {
+      console.log('condition for check avaiable place', condition)
+      let validReservation = await validateReservation(condition)
+      console.log(validReservation)
+      if (!validReservation === 0) {
+        console.log('If the first check')
+        return (response = {
+          Code: 1,
+          Error: 'Booking exist1'
+        })
+      } else {
+        console.log('Old', checkDate)
+        checkDate = moment(checkDate).add(7, 'day')
+        console.log('New', checkDate)
       }
-    } else {
-      console.log('Not found')
     }
-    let response = await RecurringReservationsModel.createUser(data)
+    if (!response.code) {
+      checkDate = data.StartDate
+      while (moment(checkDate).isSameOrBefore(data.EndDate)) {
+        console.log('create reservation')
+        let validReservation = await validateReservation(condition)
+        console.log(validReservation)
+        if (!validReservation === 0) {
+          return (response = {
+            Code: 1,
+            Error: 'Booking exist2'
+          })
+        } else {
+          console.log('Calling ReservationController')
+          let reservations = await ReservationsController.create(condition)
+          console.log('return reservation', reservations)
+          console.log('Old', checkDate)
+          checkDate = moment(checkDate).add(7, 'day')
+          console.log('New', checkDate)
+        }
+      }
+      response = await RecurringReservationsRepo.createRecurring(data)
+    }
     return response
   },
   update: async data => {
-    let response = await RecurringReservationsModel.updateUser(data)
+    let response = await RecurringReservationsRepo.updateUser(data)
     return response
   },
   delete: async data => {
-    let response = await RecurringReservationsModel.deleteUser(data)
+    let response = await RecurringReservationsRepo.deleteUser(data)
     return response
   }
 }

@@ -16,8 +16,8 @@ module.exports = {
     }
     let response = {}
     let validReservation = await ReservationRepo.getAllReservations(condition)
-    console.log(validReservation.length)
-    if (validReservation === 0) {
+    console.log('validReservation in reservation controller', validReservation.length)
+    if (!validReservation.length === 0) {
       response = {
         Code: 1,
         Error: 'Booking exist'
