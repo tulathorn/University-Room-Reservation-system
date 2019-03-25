@@ -9,6 +9,7 @@ const recurringController = require('./recurring/controller')
 const UserController = require('./controller/UserController')
 const RoomController = require('./controller/RoomController')
 const RoomUseController = require('./controller/RoomUseController')
+const ReservationController = require('./controller/ReservationController')
 
 const Mainrouters = (fastify, opts, next) => {
   fastify.get('/', async (request, reply) => {
@@ -74,25 +75,25 @@ const Mainrouters = (fastify, opts, next) => {
   // Reservation Router
   fastify.get('/reservations', async (request, reply) => {
     console.log(request.query)
-    const data = await reservationController.find(request.query)
+    const data = await ReservationController.find(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.post('/reservations', async (request, reply) => {
-    const data = await reservationController.create(request.body)
+    const data = await ReservationController.create(request.body)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.put('/reservations', async (request, reply) => {
-    const data = await reservationController.update(request.body)
+    const data = await ReservationController.update(request.body)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.delete('/reservations', async (request, reply) => {
-    const data = await reservationController.delete(request.query)
+    const data = await ReservationController.delete(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })
