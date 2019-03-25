@@ -1,8 +1,8 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../sequelize");
+const Sequelize = require('sequelize')
+const sequelize = require('../sequelize')
 
-const SectuonModel = sequelize.define(
-  "Section",
+const SectionSchema = sequelize.define(
+  'Section',
   {
     ID: {
       type: Sequelize.INTEGER,
@@ -27,4 +27,6 @@ const SectuonModel = sequelize.define(
     freezeTableName: true,
     timestamps: false
   }
-);
+)
+
+module.exports = SectionSchema

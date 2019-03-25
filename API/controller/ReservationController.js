@@ -1,11 +1,9 @@
-const ReservationRepo = require('./repository')
-const UserController = require('../users/controller')
-const RoomController = require('../rooms/controller')
+const ReservationService = require('../service/ReservationService')
 const RoomUseController = require('../roomUse/controller')
 
 module.exports = {
   find: async data => {
-    return await ReservationRepo.getAllReservations(data)
+    return await ReservationService.getAllReservations(data)
   },
   create: async data => {
     let condition = {
@@ -15,7 +13,7 @@ module.exports = {
       EndTime: data.EndTime
     }
     let response = {}
-    let validReservation = await ReservationRepo.getAllReservations(condition)
+    let validReservation = await ReservationService.getAllReservations(condition)
     console.log('validReservation in reservation controller', validReservation.length)
     if (!validReservation.length === 0) {
       response = {
@@ -23,7 +21,7 @@ module.exports = {
         Error: 'Booking exist'
       }
     } else {
-      let reservation = await ReservationRepo.createReservation(data)
+      let reservation = await ReservationService.createReservation(data)
       let code = await RoomUseController.createOnece(reservation.id)
 
       response = { reservation, code }
@@ -38,7 +36,7 @@ module.exports = {
     }
     let response = {}
     let validReservation = {}
-    validReservation = await ReservationRepo.getAllReservations(condition)
+    validReservation = await ReservationService.getAllReservations(condition)
     console.log(validReservation)
     if (!(validReservation = [''])) {
       response = {
@@ -46,14 +44,14 @@ module.exports = {
         Error: 'Booking exist'
       }
     } else {
-      response = await ReservationRepo.updateReservation(data)
+      response = await ReservationService.updateReservation(data)
     }
     return response
   },
   delete: async data => {
     let roomUseDelete = await RoomUseController.delete(data)
     console.log(roomUseDelete)
-    let response = await ReservationRepo.deleteReservation(data)
+    let response = await ReservationService.deleteReservation(data)
     return response
   }
 }

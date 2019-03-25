@@ -1,5 +1,5 @@
-const RecurringReservationsRepo = require('./repository')
-const ReservationsController = require('../reservations/controller')
+const RecurringService = require('../service/RecurringService')
+const ReservationsController = require('../controller/ReservationController')
 
 const moment = require('moment')
 
@@ -16,7 +16,7 @@ const validateReservation = async condition => {
 module.exports = {
   find: async data => {
     console.log(moment('2010-10-20').isBefore('2010-10-21'))
-    let response = await RecurringReservationsRepo.getRecurring(data)
+    let response = await RecurringService.getRecurring(data)
     return response
   },
   create: async data => {
@@ -75,16 +75,16 @@ module.exports = {
           console.log('New', checkDate)
         }
       }
-      response = await RecurringReservationsRepo.createRecurring(data)
+      response = await RecurringService.createRecurring(data)
     }
     return response
   },
   update: async data => {
-    let response = await RecurringReservationsRepo.updateUser(data)
+    let response = await RecurringService.updateUser(data)
     return response
   },
   delete: async data => {
-    let response = await RecurringReservationsRepo.deleteUser(data)
+    let response = await RecurringService.deleteUser(data)
     return response
   }
 }

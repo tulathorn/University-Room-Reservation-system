@@ -1,14 +1,14 @@
-const RoomRepo = require('./repository')
+const RoomService = require('../service/RoomService')
 const R = require('ramda')
 
 module.exports = {
   find: async data => {
     console.log(data)
     if (data) {
-      let response = await RoomRepo.getRoom(data)
+      let response = await RoomService.getRoom(data)
       return response
     }
-    let response = await RoomRepo.getAllRooms()
+    let response = await RoomService.getRoom()
     return response
   },
   create: async data => {
@@ -39,7 +39,7 @@ module.exports = {
     )
 
     const body = { room, equipment }
-    let response = await RoomRepo.createRoom(body)
+    let response = await RoomService.createRoom(body)
     return response
   },
   update: async data => {
@@ -72,11 +72,11 @@ module.exports = {
 
     const body = { room, equipment }
     console.log('input', body)
-    let response = await RoomRepo.updateRoom(body)
+    let response = await RoomService.updateRoom(body)
     return response
   },
   delete: async data => {
-    let response = await RoomRepo.deleteRoom(data)
+    let response = await RoomService.deleteRoom(data)
     return response
   }
 }

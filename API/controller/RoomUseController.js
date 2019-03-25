@@ -1,4 +1,4 @@
-const RoomUseRepo = require('./repository')
+const RoomUseService = require('../service/RoomUseService')
 
 const pinGenerate = () =>
   (pin =
@@ -19,13 +19,13 @@ module.exports = {
       BookingID: data.BookingID,
       Pin: pinGenerate()
     }
-    let response = await RoomUseRepo.create(buildData)
+    let response = await RoomUseService.create(buildData)
     return response
   },
   update: async data => {
     return 'response'
   },
   delete: async data => {
-    return await RoomUseRepo.delete(data)
+    return await RoomUseService.delete(data)
   }
 }

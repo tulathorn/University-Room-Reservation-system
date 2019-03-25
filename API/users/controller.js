@@ -1,20 +1,20 @@
-const UserModel = require('./model')
+const UserRepo = require('./repository')
 
 module.exports = {
   find: async data => {
-    let response = await UserModel.getUser(data)
+    let response = await UserRepo.getUser(data)
     return response
   },
   create: async data => {
-    let response = await UserModel.createUser(data)
+    let response = await UserRepo.createUser(data)
     return response
   },
   update: async data => {
-    let response = await UserModel.updateUser(data)
+    let response = await UserRepo.updateUser(data)
     return response
   },
   delete: async data => {
-    let response = await UserModel.deleteUser(data)
+    let response = await UserRepo.deleteUser(data)
     return response
   }
 }
