@@ -2,12 +2,13 @@ const swaggerJSDoc = require('swagger-jsdoc')
 
 // controller call
 // const userController = require('./users/controller')
-const roomController = require('./rooms/controller')
+// const roomController = require('./rooms/controller')
 const reservationController = require('./reservations/controller')
 const recurringController = require('./recurring/controller')
-const RoomUseController = require('./roomUse/controller')
 
 const UserController = require('./controller/UserController')
+const RoomController = require('./controller/RoomController')
+const RoomUseController = require('./controller/RoomUseController')
 
 const Mainrouters = (fastify, opts, next) => {
   fastify.get('/', async (request, reply) => {
@@ -44,28 +45,28 @@ const Mainrouters = (fastify, opts, next) => {
   // Room Router
   fastify.get('/rooms', async (request, reply) => {
     console.log(request.query)
-    const data = await roomController.find(request.query)
+    const data = await RoomController.find(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.post('/rooms', async (request, reply) => {
     console.log(request.query)
-    const data = await roomController.create(request.body)
+    const data = await RoomController.create(request.body)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.put('/rooms', async (request, reply) => {
     console.log(request.query)
-    const data = await roomController.update(request.body)
+    const data = await RoomController.update(request.body)
     reply.type('application/json').code(200)
     reply.send(data)
   })
 
   fastify.delete('/rooms', async (request, reply) => {
     console.log(request.query)
-    const data = await roomController.delete(request.query)
+    const data = await RoomController.delete(request.query)
     reply.type('application/json').code(200)
     reply.send(data)
   })
