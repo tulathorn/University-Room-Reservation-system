@@ -55,4 +55,8 @@ const Section = Bookshelf.model('Section', {
   }
 })
 
-module.exports = { User, Reservation, RecurringReservations, Room, RoomUse, Equipment }
+const Contact = Bookshelf.model('Contact', {
+  tableName: 'Contact'
+})
+
+module.exports = { User, Reservation, RecurringReservations, Room, RoomUse, Equipment, Contact }
