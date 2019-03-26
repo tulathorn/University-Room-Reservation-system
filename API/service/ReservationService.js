@@ -1,4 +1,5 @@
 const { Reservation } = require('../model')
+const moment = require('moment')
 
 module.exports = {
   checkroomAvaiable: async (RoomID, date, StartTime, EndTime) => {
