@@ -6,15 +6,6 @@ module.exports = {
     return await ReservationService.getAllReservations(data)
   },
   create: async data => {
-    // let condition = {
-    //   RoomID: data.RoomID,
-    //   Date: data.Date,
-    //   StartTime: data.StartTime,
-    //   EndTime: data.EndTime
-    // }
-    // let response = {}
-    // let validReservation = await ReservationService.getAllReservations(condition)
-    // console.log('validReservation in reservation controller', validReservation.length)
     let response = {}
     let checkRoomAvaiable = await ReservationService.checkroomAvaiable(
       data.RoomID,

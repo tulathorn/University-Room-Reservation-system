@@ -27,23 +27,18 @@ module.exports = {
       EndTime: data.EndTime
     }
     let response = {}
-    // let validReservation = validateReservation(condition)
-    // console.log(validReservation)
-    // if (validReservation === 0) {
-    //   response = {
-    //     Code: 1,
-    //     Error: 'Booking exist'
-    //   }
-    // } else {
-    //   console.log('Not found')
-    // }
     // Loop check date
     let checkDate = data.StartDate
     while (moment(checkDate).isSameOrBefore(condition.EndDate)) {
       console.log('condition for check avaiable place', condition)
-      let validReservation = await validateReservation(condition)
-      console.log(validReservation)
-      if (!validReservation === 0) {
+      let checkRoomAvaiable = await ReservationService.checkroomAvaiable(
+        condition.RoomID,
+        condition.Date,
+        condition.StartTime,
+        condition.EndTime
+      )
+      console.log(checkRoomAvaiable)
+      if (checkRoomAvaiable === false) {
         console.log('If the first check')
         return (response = {
           Code: 1,
@@ -59,16 +54,17 @@ module.exports = {
       checkDate = data.StartDate
       while (moment(checkDate).isSameOrBefore(data.EndDate)) {
         console.log('create reservation')
-        let validReservation = await validateReservation(condition)
-        console.log(validReservation)
-        if (!validReservation === 0) {
+        // let validReservation = await validateReservation(condition)
+        let reservations = await ReservationsController.create(condition)
+        console.log(reservations)
+        if (reservations.code) {
           return (response = {
             Code: 1,
             Error: 'Booking exist2'
           })
         } else {
           console.log('Calling ReservationController')
-          let reservations = await ReservationsController.create(condition)
+          // let reservations = await ReservationsController.create(condition)
           console.log('return reservation', reservations)
           console.log('Old', checkDate)
           checkDate = moment(checkDate).add(7, 'day')

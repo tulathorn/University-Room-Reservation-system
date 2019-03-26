@@ -1,5 +1,5 @@
 const fastify = require('fastify')()
-const sequelize = require('./sequelize')
+const knex = require('./knex')
 const fs = require('fs')
 const path = require('path')
 const fastifyCors = require('fastify-cors')
@@ -21,13 +21,11 @@ fastify.listen(4000, err => {
   if (err) {
     console.log(err)
   }
-  sequelize
-    .authenticate()
-    .then(() => {
-      console.log('Connection has been established successfully.')
+  knex
+    .raw('select 1+1 as result')
+    .then(function(data) {
+      console.log('Sucessful connect to database')
     })
-    .catch(err => {
-      console.error('Unable to connect to the database:', err)
-    })
-  console.log(`server listening on ${fastify.server.address().port}`)
+    .catch(err => err)
+  console.log(`Server listening on ${fastify.server.address().port}`)
 })

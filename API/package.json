@@ -13,7 +13,6 @@
     "mysql": "^2.16.0",
     "mysql2": "^1.6.5",
     "ramda": "^0.26.1",
-    "sequelize": "^4.43.0",
     "swagger-jsdoc": "^3.2.7"
   },
   "scripts": {
