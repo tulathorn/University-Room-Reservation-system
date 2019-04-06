@@ -15,7 +15,13 @@ fastify.register(require('./routers'), {
   logLevel: 'warn'
 })
 
+fastify.register(require('./middleware/auth'), {
+  logLevel: 'warn'
+})
+
 fastify.register(fastifyCors, {})
+
+// fastify.register()
 
 fastify.listen(4000, err => {
   if (err) {

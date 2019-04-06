@@ -1,5 +1,5 @@
 const ReservationService = require('../service/ReservationService')
-const RoomUseController = require('../roomUse/controller')
+const RoomUseController = require('../controller/RoomUseController')
 
 module.exports = {
   find: async data => {

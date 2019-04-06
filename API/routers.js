@@ -4,7 +4,7 @@ const swaggerJSDoc = require('swagger-jsdoc')
 // const userController = require('./users/controller')
 // const roomController = require('./rooms/controller')
 // const reservationController = require('./reservations/controller')
-const recurringController = require('./recurring/controller')
+// const recurringController = require('./recurring/controller')
 
 const UserController = require('./controller/UserController')
 const RoomController = require('./controller/RoomController')
