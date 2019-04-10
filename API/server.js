@@ -4,6 +4,8 @@ const fs = require('fs')
 const path = require('path')
 const fastifyCors = require('fastify-cors')
 
+fastify.register(fastifyCors, {})
+
 fastify.register(require('fastify-jwt'), {
   secret: 'cpe@kmutt'
 })
@@ -15,15 +17,13 @@ fastify.get('/healthcheck', async (request, reply) => {
 })
 
 // roters register
-fastify.register(require('./routers'), {
-  logLevel: 'warn'
-})
-
 fastify.register(require('./middleware/auth'), {
   logLevel: 'warn'
 })
 
-fastify.register(fastifyCors, {})
+fastify.register(require('./routers'), {
+  logLevel: 'warn'
+})
 
 // fastify.register()
 
