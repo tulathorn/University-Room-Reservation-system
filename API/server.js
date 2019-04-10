@@ -4,6 +4,10 @@ const fs = require('fs')
 const path = require('path')
 const fastifyCors = require('fastify-cors')
 
+fastify.register(require('fastify-jwt'), {
+  secret: 'cpe@kmutt'
+})
+
 // Health check the api
 fastify.get('/healthcheck', async (request, reply) => {
   reply.code(200)

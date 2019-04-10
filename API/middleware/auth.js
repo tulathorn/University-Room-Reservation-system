@@ -1,6 +1,49 @@
 const fastify = require('fastify')()
 const LdapAuth = require('ldapauth-fork')
 
+// fastify.register(require('fastify-leveldb'), { name: 'authdb' })
+
+function verifyJWTandLevel(request, reply, done) {
+  const jwt = this.jwt
+  const level = this.level
+
+  if (request.body && request.body.failureWithReply) {
+    reply.code(401).send({ error: 'Unauthorized' })
+    return done(new Error())
+  }
+
+  if (!request.req.headers['auth']) {
+    return done(new Error('Missing token header'))
+  }
+
+  jwt.verify(request.req.headers['auth'], onVerify)
+
+  function onVerify(err, decoded) {
+    if (err || !decoded.user || !decoded.password) {
+      return done(new Error('Token not valid'))
+    }
+
+    level.get(decoded.user, onUser)
+
+    function onUser(err, password) {
+      if (err) {
+        if (err.notFound) {
+          return done(new Error('Token not valid'))
+        }
+        return done(err)
+      }
+
+      if (!password || password !== decoded.password) {
+        return done(new Error('Token not valid'))
+      }
+
+      console.log('decoded : ', decoded)
+
+      done()
+    }
+  }
+}
+
 function authenticate(username, password) {
   const options = {
     url: 'ldap://10.1.130.12',
@@ -49,21 +92,30 @@ async function verifyUser(request, reply, done) {
 
 const AuthMeddleware = (fastify, opt, next) => {
   fastify
-    .decorate('verifyJWTandLevel', function(request, reply, done) {
-      // your validation logic
-      done() // pass an error if the authentication fails
-    })
+    .decorate('verifyJWTandLevel', verifyJWTandLevel)
     .decorate('verifyUserAndPassword', verifyUser)
     .register(require('fastify-auth'))
+    .register(require('fastify-leveldb'), { name: 'authdb' })
     .after(() => {
       fastify.addHook('preHandler', fastify.auth([fastify.verifyUserAndPassword]))
-
       fastify.route({
         method: 'POST',
         url: '/auth',
         handler: async (req, reply) => {
-          req.log.info('Auth route')
-          reply.send({ hello: 'world' })
+          req.log.info('Creating new user')
+          console.log(fastify.level)
+          fastify.level.put(req.body.username, req.body.password, onPut)
+
+          function onPut(err) {
+            if (err) return reply.send(err)
+            fastify.jwt.sign({ username: req.body.username }, onToken)
+          }
+
+          function onToken(err, token) {
+            if (err) return reply.send(err)
+            req.log.info('User created')
+            reply.send({ token })
+          }
         }
       })
     })
